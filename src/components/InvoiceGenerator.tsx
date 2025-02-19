@@ -6,30 +6,7 @@ import expressionParser from 'docxtemplater/expressions';
 import { saveAs } from 'file-saver';
 
 import styles from './InvoiceGenerator.module.css'
-
-
-interface Client {
-    name: string,
-    phone: string,
-    email: string,
-    website: string,
-}
-
-interface Item {
-    description: string,
-    quantity: number,
-    unitPrice: number,
-    total: number
-}
-
-interface Invoice {
-    id: number
-    invoiceNumber: string
-    client: Client,
-    dateIssued: string,
-    items: Array<Item>
-    total: number
-}
+import { Invoice } from '../middleware/types';
 
 const mapInvoiceInfo = (invoice: Invoice): any => {
     return {
@@ -60,8 +37,6 @@ function InvoiceGenerator() {
       .then((res) => res.json())
       .then((data) => setInvoiceData(data));
   }, []);
-
-  console.log(invoiceData?.[selectedInvoice])
 
   const loadFile = async (url: string, callback: (error: any, content: any) => void) => {
     PizZipUtils.getBinaryContent(url, callback);

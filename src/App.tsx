@@ -1,8 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router';
 import InvoiceGenerator from './components/InvoiceGenerator';
 import styles from './App.module.css';
+import { useEffect } from 'react';
+import { InvoiceApi } from './middleware/api/InvoiceApi';
 
 function App() {
+  useEffect(() => {
+    const getAllClients = async () => {
+      InvoiceApi.getAllInvoices()
+    }
+    getAllClients()
+  }, [])
   return (
     <Router>
       <header className={styles.header}>
@@ -22,3 +30,7 @@ function App() {
 }
 
 export default App;
+
+function getAllInvoices() {
+  throw new Error('Function not implemented.');
+}
