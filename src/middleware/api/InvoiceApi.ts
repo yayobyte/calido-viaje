@@ -1,8 +1,8 @@
-import { InvoiceService } from "../services/InvoiceService";
+import { ClientService } from "../services/ClientService";
 
-export abstract class InvoiceApi {
-    static async getAllInvoices () {
-        const invoiceService = new InvoiceService('')
-        const invoices = await invoiceService.getAllInvoices()
+export abstract class ClientsApi {
+    static async getAllClients () {
+        const clientService = new ClientService()
+        return await clientService.getAllClients()
     }
 }
