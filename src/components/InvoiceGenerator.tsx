@@ -30,7 +30,7 @@ const mapInvoiceInfo = (invoice: Invoice): any => {
 function InvoiceGenerator() {
   
   const [invoiceData, setInvoiceData] = useState<Invoice[] | null>(null);
-  const [selectedInvoice, setSelectedInvoice] = useState<number>(0)
+  const [selectedInvoice] = useState<number>(0)
 
   useEffect(() => {
     fetch('/data.json')
@@ -38,7 +38,7 @@ function InvoiceGenerator() {
       .then((data) => setInvoiceData(data));
   }, []);
 
-  const loadFile = async (url: string, callback: (error: any, content: any) => void) => {
+  const loadFile = async (url: string, callback: (error: unknown, content: unknown) => void) => {
     PizZipUtils.getBinaryContent(url, callback);
   };
 
@@ -49,7 +49,7 @@ function InvoiceGenerator() {
           if (error) {
             throw error;
           }
-          const zip = new PizZip(content);
+          const zip = new PizZip(content as string | ArrayBuffer | Uint8Array);
           const doc = new Docxtemplater(zip, {
             paragraphLoop: true,
             linebreaks: true,
@@ -87,7 +87,7 @@ function InvoiceGenerator() {
         </tr>
       </thead>
       <tbody>
-        {invoiceData?.map((inv, idx) => (
+        {invoiceData?.map((inv) => (
           <tr key={inv.id}>
             <td>{inv.invoiceNumber}</td>
             <td>{new Date(inv.dateIssued).toLocaleDateString()}</td>

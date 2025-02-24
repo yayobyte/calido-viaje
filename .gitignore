@@ -69,3 +69,11 @@ yarn-error.log*
 .env
 .env.local
 .env.*.local
+
+#logs
+/logs
+*.log
+
+#firebase
+.firebaserc
+.firebase
