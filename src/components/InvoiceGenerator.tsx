@@ -7,6 +7,7 @@ import { saveAs } from 'file-saver';
 
 import styles from './InvoiceGenerator.module.css'
 import { Invoice } from '../middleware/types';
+import { InvoiceService } from '../middleware/services/InvoiceService';
 
 const mapInvoiceInfo = (invoice: Invoice): any => {
     return {
@@ -26,17 +27,36 @@ const mapInvoiceInfo = (invoice: Invoice): any => {
     }
 }
 
+const invoiceService = new InvoiceService();
 
 function InvoiceGenerator() {
   
-  const [invoiceData, setInvoiceData] = useState<Invoice[] | null>(null);
-  const [selectedInvoice] = useState<number>(0)
+  const [invoices, setInvoices] = useState<Invoice[]>([]);
+  const [selectedInvoice, setSelectedInvoice] = useState<number>(0);
+  const [invoiceDetails, setInvoiceDetails] = useState<{ invoice: Invoice, items: InvoiceItem[] } | null>(null);
 
   useEffect(() => {
-    fetch('/data.json')
-      .then((res) => res.json())
-      .then((data) => setInvoiceData(data));
+      const fetchInvoices = async () => {
+          try {
+              const data = await invoiceService.getAllInvoices();
+              setInvoices(data);
+              console.log(data)
+          } catch (error) {
+              console.error('Failed to fetch invoices:', error);
+          }
+      };
+      fetchInvoices();
   }, []);
+
+  const handleSelectInvoice = async (id: number) => {
+      try {
+          const details = await invoiceService.getInvoiceWithItems(id);
+          setInvoiceDetails(details);
+          setSelectedInvoice(id);
+      } catch (error) {
+          console.error(`Failed to fetch invoice ${id}:`, error);
+      }
+  };
 
   const loadFile = async (url: string, callback: (error: unknown, content: unknown) => void) => {
     PizZipUtils.getBinaryContent(url, callback);
@@ -55,7 +75,7 @@ function InvoiceGenerator() {
             linebreaks: true,
             parser: expressionParser,
           });
-          doc.render(mapInvoiceInfo(invoiceData?.[selectedInvoice] || {
+          doc.render(mapInvoiceInfo(invoices?.[selectedInvoice] || {
             id: 0,
             invoiceNumber: '',
             client: { name: '', phone: '', email: '', website: '' },
@@ -69,45 +89,62 @@ function InvoiceGenerator() {
             mimeType:
               'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
           });
-          saveAs(out, `factura_${invoiceData?.[selectedInvoice]['invoiceNumber']}`);
+          saveAs(out, `factura_${invoices?.[selectedInvoice]['invoiceNumber']}`);
         }
       );
   };
 
   return (
     <div className={styles.container}>
-    <h1 className={styles.title}>Invoice Generator</h1>
-    <table className={styles.table}>
-      <thead>
-        <tr>
-          <th>Invoice #</th>
-          <th>Date Issued</th>
-          <th>Client</th>
-          <th>Select</th>
-        </tr>
-      </thead>
-      <tbody>
-        {invoiceData?.map((inv) => (
-          <tr key={inv.id}>
-            <td>{inv.invoiceNumber}</td>
-            <td>{new Date(inv.dateIssued).toLocaleDateString()}</td>
-            <td>{inv.client.name}</td>
-            <td>
-            <div className={styles.buttonGroup}>
-                <button 
-                    className={styles.generateButton}
-                    onClick={() => generateDocument()}
-                >
-                    Generate Word
-                </button>
-                </div>
-            </td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
-  </div>
-  );
+        <h1 className={styles.title}>Invoice Generator</h1>
+        <table className={styles.table}>
+            <thead>
+                <tr>
+                    <th>Invoice #</th>
+                    <th>Date Issued</th>
+                    <th>Client</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {invoices.map((inv) => (
+                    <tr key={inv.id}>
+                        <td>{inv.invoiceNumber}</td>
+                        <td>{new Date(inv.createdAt).toLocaleDateString('es-CO', {
+                                weekday: "long",
+                                year: "numeric",
+                                month: "long",
+                                day: "numeric",
+                            })}
+                        </td>
+                        <td>{inv.client.name}</td>
+                        <td>
+                            <button onClick={() => handleSelectInvoice(inv.id)}>Select</button>
+                        
+                            <button onClick={() => generateDocument(inv.id)}>Generate Word</button>
+                        </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
+        {invoiceDetails && (
+            <div>
+                <h2>Invoice Details</h2>
+                <p>Invoice Number: {invoiceDetails.invoice.invoiceNumber}</p>
+                <p>Date Issued: {new Date(invoiceDetails.invoice.dateIssued).toLocaleDateString()}</p>
+                <p>Total: {invoiceDetails.invoice.total}</p>
+                <h3>Items</h3>
+                <ul>
+                    {invoiceDetails.items.map(item => (
+                        <li key={item.id}>
+                            {item.description} - {item.quantity} x {item.unitPrice} = {item.total}
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        )}
+    </div>
+);
 }
 
 export default InvoiceGenerator;

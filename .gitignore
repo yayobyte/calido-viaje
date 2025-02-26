@@ -73,7 +73,3 @@ yarn-error.log*
 #logs
 /logs
 *.log
-
-#firebase
-.firebaserc
-.firebase

@@ -14,17 +14,25 @@ export class ClientService {
             }
             return clients as Client[]
         } catch (err) {
-            console.log('Error fetching invoices', err)
+            console.log('Error fetching clients', err)
             throw err
         }
     }
 
-    public async getClientsById(id: number) {
+    public async getClientById(id: number): Promise<Client | null> {
         try {
-            const clients = await this.getAllClients();
-            return clients.find(client => client.id === id) || null;
+            const { data: client, error } = await supabase
+                .from('clients')
+                .select('*')
+                .eq('id', id)
+                .single();
+            if (error) {
+                console.error(`Error fetching client ${id}:`, error);
+                throw error;
+            }
+            return client as Client;
         } catch (error) {
-            console.error(`Error fetching invoice ${id}:`, error);
+            console.error(`Error fetching client ${id}:`, error);
             throw error;
         }
     }
