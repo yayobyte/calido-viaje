@@ -5,9 +5,10 @@ import { Invoice, InvoiceItem, Client } from "../types"
 export class InvoiceService {
     private processAllInvoices = (invoices: Invoice[]) => {
         return invoices.map((invoice) => {
-            let total = 0
+            let total: number = 0
             invoice.items.map((item) => {
                 total = total + (item.quantity * item.unitPrice)
+                return item
             })
             return {
                 ...invoice,
@@ -30,8 +31,8 @@ export class InvoiceService {
                 console.error('Supabase error:', error);
                 throw error;
             }
-            const processedInvoices = this.processAllInvoices(invoices)
-            return keysToCamelCase(processedInvoices) as Invoice[];
+            const casedInvoices = keysToCamelCase(invoices) as Invoice[];
+            return this.processAllInvoices(casedInvoices)
         } catch (err) {
             console.log('Error fetching invoices', err);
             throw err;

@@ -6,9 +6,9 @@ import expressionParser from 'docxtemplater/expressions';
 import { saveAs } from 'file-saver';
 import styles from './InvoiceGenerator.module.css'
 
-import { Invoice, InvoiceItem } from '../middleware/types';
+import { Invoice } from '../middleware/types';
 import { InvoiceService } from '../middleware/services/InvoiceService';
-import { formattedDate } from '../helpers/Date';
+import { formattedDate } from '../helpers/date';
 import { formatColombianCurrency } from '../helpers/currency';
 
 const invoiceService = new InvoiceService();
@@ -53,7 +53,6 @@ function InvoiceGenerator() {
           try {
               const data = await invoiceService.getAllInvoices();
               setInvoices(data);
-              console.log(data)
           } catch (error) {
               console.error('Failed to fetch invoices:', error);
           }
