@@ -3,6 +3,19 @@ import { keysToCamelCase } from "../helpers/toCamelCase";
 import { Invoice, InvoiceItem, Client } from "../types"
 
 export class InvoiceService {
+    private processAllInvoices = (invoices: Invoice[]) => {
+        return invoices.map((invoice) => {
+            let total = 0
+            invoice.items.map((item) => {
+                total = total + (item.quantity * item.unitPrice)
+            })
+            return {
+                ...invoice,
+                total,
+            }
+        })
+    }
+
     public async getAllInvoices(): Promise<Invoice[]> {
         try {
             const { data: invoices, error } = await supabase
@@ -17,7 +30,8 @@ export class InvoiceService {
                 console.error('Supabase error:', error);
                 throw error;
             }
-            return keysToCamelCase(invoices) as Invoice[];
+            const processedInvoices = this.processAllInvoices(invoices)
+            return keysToCamelCase(processedInvoices) as Invoice[];
         } catch (err) {
             console.log('Error fetching invoices', err);
             throw err;

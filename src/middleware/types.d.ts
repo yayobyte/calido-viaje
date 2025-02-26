@@ -21,4 +21,5 @@ export interface Invoice {
     client: Client,
     createdAt: string,
     items: Array<Item>
+    total: number
 }
