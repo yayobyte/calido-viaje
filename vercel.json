@@ -4,13 +4,24 @@
   ],
   "headers": [
     {
-      "source": "/assets/(.*)",
+      "source": "/assets/(.*)\\.js",
       "headers": [
         {
           "key": "Content-Type",
           "value": "application/javascript"
         }
       ]
+    },
+    {
+      "source": "/assets/(.*)\\.css",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "text/css"
+        }
+      ]
     }
-  ]
+  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist"
 }
