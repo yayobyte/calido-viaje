@@ -6,6 +6,7 @@ import { Invoice } from '../middleware/types';
 import { InvoiceService } from '../middleware/services/InvoiceService';
 import { formattedDate } from '../helpers/date';
 import { formatColombianCurrency } from '../helpers/currency';
+import { generateDocument, mapInvoiceInfo } from '../helpers/generateDocxService';
 
 const invoiceService = new InvoiceService();
 
@@ -21,8 +22,9 @@ function InvoiceGenerator() {
     setSelectedInvoice(invoiceId)
   }
 
-  const handleGenerateDocx = (id: number) => {
-
+  const handleGenerateDocx = () => {
+    const mappedFileData = mapInvoiceInfo(invoices[selectedInvoice])
+    generateDocument(mappedFileData, 'invoice_mirko.docx', `factura_/${invoices[selectedInvoice].id}_${invoices[selectedInvoice].createdAt}.docx`)
   }
 
   useEffect(() => {

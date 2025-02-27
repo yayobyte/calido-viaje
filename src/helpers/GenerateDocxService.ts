@@ -5,7 +5,9 @@ import expressionParser from 'docxtemplater/expressions';
 import { saveAs } from 'file-saver';
 import { Invoice } from '../middleware/types';
 
-const mapInvoiceInfo = (invoice: Invoice) => {
+type TemplateName = 'invoice_mirko.docx'
+
+export const mapInvoiceInfo = (invoice: Invoice) => {
     let total = 0
     return {
         customer_name: invoice.client.name,
@@ -21,11 +23,11 @@ const mapInvoiceInfo = (invoice: Invoice) => {
                 item_description: item.description,
                 item_quantity: item.quantity.toLocaleString(),
                 item_price: item.unitPrice.toLocaleString(),
-                item_amount: Number(item.quantity * item.unitPrice),
+                item_amount: Number(item.quantity * item.unitPrice).toLocaleString(),
                 item_total: partialTotal
             })
         }),
-        total,
+        total: total.toLocaleString(),
     }
 }
 
@@ -33,9 +35,9 @@ const loadFile = async (url: string, callback: (error: unknown, content: unknown
     PizZipUtils.getBinaryContent(url, callback);
 };
 
-export const generateDocument = () => {
+export const generateDocument = (documentData: unknown, templateName: TemplateName, fileName: string) => {
     loadFile(
-        './invoice_mirko.docx',
+        `./${templateName}`,
         function (error, content) {
           if (error) {
             throw error;
@@ -46,21 +48,14 @@ export const generateDocument = () => {
             linebreaks: true,
             parser: expressionParser,
           });
-          doc.render(mapInvoiceInfo(invoices?.[selectedInvoice] || {
-            id: 0,
-            invoiceNumber: '',
-            client: { name: '', phone: '', email: '', website: '' },
-            dateIssued: new Date().toISOString(),
-            items: [],
-            total: 0
-          }));
+          doc.render(documentData);
           
           const out = doc.getZip().generate({
             type: 'blob',
             mimeType:
               'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
           });
-          saveAs(out, `factura_${invoices?.[selectedInvoice]['invoiceNumber']}`);
+          saveAs(out, fileName);
         }
       );
   };
