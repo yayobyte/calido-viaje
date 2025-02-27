@@ -1,0 +1,6 @@
+{
+    "routes": [
+      { "src": "/invoice_mirko.docx", "dest": "/invoice_mirko.docx" },
+      { "src": "/(.*)", "dest": "/index.html" }
+    ]
+}
