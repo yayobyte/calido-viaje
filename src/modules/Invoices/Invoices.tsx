@@ -6,7 +6,8 @@ import { Invoice } from '../../middleware/types';
 import { InvoiceService } from '../../middleware/services/InvoiceService';
 import { formattedDate } from '../../helpers/date';
 import { formatColombianCurrency } from '../../helpers/currency';
-import { generateDocument, mapInvoiceInfo } from '../../helpers/generateDocxService';
+import { generateDocument } from '../../helpers/generateDoc';
+import { mapInvoiceInfo } from './helper';
 
 const invoiceService = new InvoiceService();
 
