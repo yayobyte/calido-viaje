@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Invoices from './modules/Invoices/Invoices';
 import Navigator from './components/ui/navigator/Navigator';
 import styles from './App.module.css';
+import Home from './modules/Home/Home';
 
 function App() {
   return (
@@ -10,7 +11,7 @@ function App() {
       <main className={styles.main}>
         <div className={styles.content}>
           <Routes>
-            <Route path="/" element={<h1>Welcome to Calido Viaje</h1>} />
+            <Route path="/" element={<Home />} />
             <Route path="/invoices" element={<Invoices />} />
           </Routes>
         </div>
