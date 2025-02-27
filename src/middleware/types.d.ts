@@ -4,6 +4,7 @@ export interface Client {
     phone: string,
     email: string,
     website: string,
+    nit: string
 }
 
 export interface InvoiceItem {

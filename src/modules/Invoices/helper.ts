@@ -5,6 +5,7 @@ import { Invoice } from "../../middleware/types"
 export const mapInvoiceInfo = (invoice: Invoice) => {
     let total = 0
     return {
+        customer_id: invoice.client.nit || "",
         customer_name: invoice.client.name || "",
         customer_phone: invoice.client.phone || "",
         customer_email: invoice.client.email || "",

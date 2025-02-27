@@ -25,7 +25,7 @@ function Invoices() {
 
   const handleGenerateDocx = () => {
     const mappedFileData = mapInvoiceInfo(invoices[selectedInvoice])
-    generateDocument(mappedFileData, 'invoice_mirko.docx', `factura_/${invoices[selectedInvoice].id}_${invoices[selectedInvoice].createdAt}.docx`)
+    generateDocument(mappedFileData, 'invoice_mirko.docx', `factura_${invoices[selectedInvoice].id}_${invoices[selectedInvoice].client.name}.docx`)
   }
 
   useEffect(() => {
