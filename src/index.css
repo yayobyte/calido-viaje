@@ -50,6 +50,10 @@
   width: 100%;
 }
 
+html, body {
+  overflow-x: hidden;
+}
+
 a {
   font-weight: 500;
   color: var(--color-primary);
@@ -134,5 +138,25 @@ button:focus-visible {
   
   a:hover {
     color: var(--color-secondary);
+  }
+}
+
+@media (max-width: 768px) {
+  :root {
+    /* Reduce spacing on mobile */
+    --space-xl: 1.5rem;
+    --space-lg: 1rem;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+  
+  .container {
+    padding: var(--space-md);
   }
 }
