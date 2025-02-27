@@ -76,9 +76,11 @@ function Invoices() {
             <div className={styles.invoiceDetails}>
                 <div className={styles.invoiceHeader}>
                     <div>
-                        <h2>Invoice Details: #{currentInvoice.invoiceNumber}</h2>
-                        <p>Date Issued: <i>{formattedDate(currentInvoice.createdAt)}</i></p>
-                        <p>Total: <strong>{formatColombianCurrency(currentInvoice.total)}</strong></p>
+                        <h2>Invoice: #{currentInvoice.invoiceNumber}</h2>
+                        <p><i>{formattedDate(currentInvoice.createdAt)}</i></p>
+                        <div>
+                            <h3>{formatColombianCurrency(currentInvoice.total)}</h3>  
+                        </div>
                     </div>
                     <div className={styles.buttonGroup}>
                         <button 
@@ -90,7 +92,6 @@ function Invoices() {
                     </div>
                     
                 </div>
-                <h3>Items</h3>
                 <table className={styles.table}>
                     <thead>
                         <tr>
