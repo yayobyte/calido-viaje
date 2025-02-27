@@ -1,29 +1,19 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import InvoiceGenerator from './components/InvoiceGenerator';
+import Navigator from './components/ui/navigator/Navigator';
 import styles from './App.module.css';
-import { useEffect } from 'react';
-import { ClientsApi } from './middleware/api/ClientApi';
 
 function App() {
-  useEffect(() => {
-    const getAllClients = async () => {
-      ClientsApi.getAllClients()
-    }
-    getAllClients()
-  }, [])
   return (
     <Router>
-      <header className={styles.header}>
-        <nav className={styles.nav}>
-          <Link className={styles.link} to="/">Home</Link>
-          <Link className={styles.link} to="/invoices">Invoices</Link>
-        </nav>
-      </header>
+      <Navigator />
       <main className={styles.main}>
-        <Routes>
-          <Route path="/" element={<h1>Welcome</h1>} />
-          <Route path="/invoices" element={<InvoiceGenerator />} />
-        </Routes>
+        <div className={styles.content}>
+          <Routes>
+            <Route path="/" element={<h1>Welcome to Calido Viaje</h1>} />
+            <Route path="/invoices" element={<InvoiceGenerator />} />
+          </Routes>
+        </div>
       </main>
     </Router>
   );
