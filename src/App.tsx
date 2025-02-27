@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import InvoiceGenerator from './components/InvoiceGenerator';
+import Invoices from './modules/Invoices/Invoices';
 import Navigator from './components/ui/navigator/Navigator';
 import styles from './App.module.css';
 
@@ -11,7 +11,7 @@ function App() {
         <div className={styles.content}>
           <Routes>
             <Route path="/" element={<h1>Welcome to Calido Viaje</h1>} />
-            <Route path="/invoices" element={<InvoiceGenerator />} />
+            <Route path="/invoices" element={<Invoices />} />
           </Routes>
         </div>
       </main>

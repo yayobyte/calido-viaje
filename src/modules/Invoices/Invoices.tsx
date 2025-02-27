@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 
-import styles from './InvoiceGenerator.module.css'
-import Loader from './ui/loader/Loader';
-import { Invoice } from '../middleware/types';
-import { InvoiceService } from '../middleware/services/InvoiceService';
-import { formattedDate } from '../helpers/date';
-import { formatColombianCurrency } from '../helpers/currency';
-import { generateDocument, mapInvoiceInfo } from '../helpers/generateDocxService';
+import styles from './Invoices.module.css'
+import Loader from '../../components/ui/loader/Loader';
+import { Invoice } from '../../middleware/types';
+import { InvoiceService } from '../../middleware/services/InvoiceService';
+import { formattedDate } from '../../helpers/date';
+import { formatColombianCurrency } from '../../helpers/currency';
+import { generateDocument, mapInvoiceInfo } from '../../helpers/generateDocxService';
 
 const invoiceService = new InvoiceService();
 
-function InvoiceGenerator() {
+function Invoices() {
   
   const [invoices, setInvoices] = useState<Invoice[]>([]);
   const [selectedInvoice, setSelectedInvoice] = useState<number>(-1);
@@ -47,7 +47,7 @@ function InvoiceGenerator() {
 
   return (
     <div className={styles.container}>
-        <h1 className={styles.title}>Invoice Generator</h1>
+        <h1 className={styles.title}>Invoices</h1>
         <table className={styles.table}>
             <thead>
                 <tr>
@@ -82,7 +82,7 @@ function InvoiceGenerator() {
                     <div className={styles.buttonGroup}>
                         <button 
                             className={styles.generateButton}
-                            onClick={() => handleGenerateDocx(currentInvoice.id)}
+                            onClick={handleGenerateDocx}
                         >
                             Generate Invoice
                         </button>
@@ -121,4 +121,4 @@ function InvoiceGenerator() {
 );
 }
 
-export default InvoiceGenerator;
+export default Invoices;

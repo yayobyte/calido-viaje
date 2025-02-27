@@ -66,6 +66,11 @@ body {
   min-width: 320px;
   min-height: 100vh;
   font-family: 'Roboto Slab', serif;
+  box-sizing: border-box; /* Add this */
+}
+
+*, *:before, *:after {
+  box-sizing: inherit; /* Add this to ensure consistent box sizing */
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -130,17 +135,4 @@ button:focus-visible {
   a:hover {
     color: var(--color-secondary);
   }
-}
-
-.main {
-  margin-top: 70px; /* Space for the navbar */
-  padding: var(--space-xl);
-  min-height: calc(100vh - 70px);
-  width: 100%;
-}
-
-.content {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
 }
