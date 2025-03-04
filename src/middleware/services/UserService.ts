@@ -13,7 +13,8 @@ export class UserService {
     isAuthorized: boolean;
   }> {
     try {
-      // First attempt to sign in
+      console.log('Attempting to login with:', credentials.email);
+      
       const { data, error } = await supabase.auth.signInWithPassword({
         email: credentials.email,
         password: credentials.password,
@@ -25,18 +26,53 @@ export class UserService {
       
       // If login successful, check if user is authorized
       if (data.user) {
+        console.log('User authenticated successfully:', data.user.id);
+        
+        // Check if user profile exists
         const { data: profileData, error: profileError } = await supabase
           .from('user_profiles')
           .select('is_authorized')
           .eq('id', data.user.id)
           .single();
         
+        console.log('Profile data:', profileData, 'Error:', profileError);
+        
+        // If profile doesn't exist, create one
+        if (profileError && profileError.code === 'PGRST116') {
+          console.log('Profile not found, creating one');
+          
+          // Create profile for user
+          const { error: insertError } = await supabase
+            .from('user_profiles')
+            .insert([
+              {
+                id: data.user.id,
+                full_name: data.user.user_metadata?.full_name || '',
+                is_authorized: true // For testing, automatically authorize new users
+              }
+            ]);
+            
+          if (insertError) {
+            console.error('Error creating profile:', insertError);
+            throw insertError;
+          }
+          
+          return { 
+            user: data.user, 
+            error: null,
+            isAuthorized: true // We just created an authorized profile
+          };
+        }
+        
+        // If there was another error fetching the profile
         if (profileError) {
+          console.error('Error fetching profile:', profileError);
           throw profileError;
         }
         
         // If user is not authorized, sign them out immediately
         if (!profileData.is_authorized) {
+          console.log('User not authorized, signing out');
           await supabase.auth.signOut();
           return { 
             user: null, 
@@ -52,9 +88,9 @@ export class UserService {
         };
       }
       
-      return { 
-        user: null, 
-        error: new Error("Unknown error during login"), 
+      return {
+        user: null,
+        error: new Error('Login failed for unknown reason'),
         isAuthorized: false
       };
     } catch (error) {
