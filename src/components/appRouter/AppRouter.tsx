@@ -7,6 +7,8 @@ import EmailVerification from '../../modules/Auth/EmailVerification';
 import ProtectedRoute from '../../components/ProtectedRoute';
 
 import styles from './AppRouter.module.css'
+import UserManagement from '../../modules/Admin/UserManagement';
+import Unauthorized from '../../modules/Auth/Unauthorized';
 
 
 const AppRouter = () => {
@@ -18,6 +20,15 @@ const AppRouter = () => {
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/verify-email" element={<EmailVerification />} />
+              <Route path='/unauthorized' element={<Unauthorized />} />
+              <Route 
+                path="/admin/users" 
+                element={
+                  <ProtectedRoute>
+                    <UserManagement />
+                  </ProtectedRoute>
+                }
+              />
               <Route 
                 path="/invoices" 
                 element={

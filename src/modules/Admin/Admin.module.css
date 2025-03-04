@@ -1,0 +1,132 @@
+.container {
+  padding: var(--space-xl);
+  max-width: 100%;
+}
+
+.container h1 {
+  margin-bottom: var(--space-lg);
+  color: var(--color-primary);
+}
+
+.error {
+  padding: var(--space-sm);
+  margin-bottom: var(--space-md);
+  background-color: #fde8e8;
+  color: #e53e3e;
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: var(--space-md);
+  background-color: var(--color-white);
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.table th {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+  text-align: left;
+  padding: var(--space-md);
+  font-weight: 500;
+}
+
+.table td {
+  padding: var(--space-md);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.table tr:last-child td {
+  border-bottom: none;
+}
+
+.table tr:hover {
+  background-color: var(--color-gray-100);
+}
+
+.authorized {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: #d1fae5;
+  color: #059669;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.unauthorized {
+  display: inline-block;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: #fee2e2;
+  color: #dc2626;
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.successButton {
+  background-color: #059669;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.successButton:hover {
+  background-color: #047857;
+}
+
+.dangerButton {
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: var(--space-xs) var(--space-sm);
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dangerButton:hover {
+  background-color: #b91c1c;
+}
+
+.successButton:disabled,
+.dangerButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.noData {
+  text-align: center;
+  color: var(--color-gray-500);
+  padding: var(--space-xl);
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  .container {
+    padding: var(--space-md);
+  }
+  
+  .tableContainer {
+    overflow-x: auto;
+    width: 100%;
+  }
+  
+  .table {
+    min-width: 600px;
+  }
+  
+  .table th,
+  .table td {
+    padding: var(--space-sm);
+  }
+}

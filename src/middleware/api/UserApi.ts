@@ -31,4 +31,12 @@ export abstract class UserApi {
   static async resendVerificationEmail(email: string) {
     return await this.userService.resendVerificationEmail(email);
   }
+
+  static async setUserAuthorization(userId: string, isAuthorized: boolean) {
+    return await this.userService.setUserAuthorization(userId, isAuthorized);
+  }
+
+  static async getAllUsers() {
+    return await this.userService.getAllUsers();
+  }
 }

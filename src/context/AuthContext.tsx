@@ -8,6 +8,7 @@ interface AuthContextType {
   user: User | null;
   loading: boolean;
   isVerified: boolean;
+  isAuthorized: boolean;
   login: (email: string, password: string) => Promise<{ success: boolean; error?: string }>;
   logout: () => Promise<void>;
   register: (email: string, password: string, fullName: string) => Promise<{ success: boolean; error?: string }>;
@@ -20,6 +21,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [isVerified, setIsVerified] = useState<boolean>(false);
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -58,15 +60,20 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   }, []);
 
   const login = async (email: string, password: string) => {
-    const { user, error } = await UserApi.login({ email, password });
+    const { user, error, isAuthorized } = await UserApi.login({ email, password });
     
     if (error) {
       return { success: false, error: error.message };
     }
     
+    if (!isAuthorized) {
+      return { success: false, error: "Your account is not authorized. Please contact an administrator." };
+    }
+    
     if (user) {
       setUser(user);
       setIsVerified(user.user_metadata.email_verified === true);
+      setIsAuthorized(isAuthorized);
     }
     
     return { success: true };
@@ -119,6 +126,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       user, 
       loading, 
       isVerified,
+      isAuthorized,
       login, 
       logout, 
       register,

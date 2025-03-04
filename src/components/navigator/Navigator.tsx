@@ -12,6 +12,8 @@ const Navigator: React.FC = () => {
     await logout();
   };
 
+  console.log(user)
+
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
@@ -51,6 +53,12 @@ const Navigator: React.FC = () => {
                 {user.user_metadata?.full_name || user.email}
               </button>
               <div className={styles.userDropdown}>
+                <Link
+                  className={styles.manageUsersLink}
+                  to='/admin/users'
+                >
+                  Manage Users
+                </Link>
                 <button 
                   onClick={handleLogout}
                   className={styles.logoutButton}

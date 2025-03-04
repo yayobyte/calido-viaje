@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
-  const { user, loading, isVerified } = useAuth();
+  const { user, loading, isVerified, isAuthorized } = useAuth();
   
   if (loading) {
     return <Loader />;
@@ -20,6 +20,10 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
   
   if (!isVerified) {
     return <Navigate to="/verify-email" replace />;
+  }
+  
+  if (!isAuthorized) {
+    return <Navigate to="/unauthorized" replace />;
   }
   
   return <>{children}</>;
