@@ -1,7 +1,7 @@
 import supabase from "../database/SupabaseService";
 import { User, UserCredentials, NewUser } from "../types";
 
-const SUPER_ADMIN_EMAIL = import.meta.env.VITE_SUPERADMIN_EMAIL;
+const SUPERADMIN_EMAIL = import.meta.env.VITE_SUPERADMIN_EMAIL;
 
 export class UserService {
   /**
@@ -241,7 +241,7 @@ export class UserService {
         throw userError;
       }
       
-      if (!currentUser.user || currentUser.user.email !== SUPER_ADMIN_EMAIL) {
+      if (!currentUser.user || currentUser.user.email !== SUPERADMIN_EMAIL) {
         return {
           success: false,
           error: new Error("Only administrators can authorize users")
@@ -295,7 +295,7 @@ export class UserService {
         throw userError;
       }
       
-      if (!currentUser.user || currentUser.user.email !== SUPER_ADMIN_EMAIL) {
+      if (!currentUser.user || currentUser.user.email !== SUPERADMIN_EMAIL) {
         return {
           users: null,
           error: new Error("Only administrators can view all users")

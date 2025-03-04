@@ -12,8 +12,6 @@ const Navigator: React.FC = () => {
     await logout();
   };
 
-  console.log(user)
-
   return (
     <header className={styles.header}>
       <nav className={styles.nav}>
