@@ -35,4 +35,38 @@ export interface NewUser extends UserCredentials {
   fullName: string;
 }
 
+// Auth response types
+export interface LoginResponse {
+  user: User | null;
+  error: Error | null;
+  isAuthorized: boolean;
+}
+
+export interface AuthResponse {
+  user: User | null;
+  error: Error | null;
+}
+
+export interface ErrorOnlyResponse {
+  error: Error | null;
+}
+
+export interface AuthorizationResponse {
+  success: boolean;
+  error: Error | null;
+}
+
+export interface UserProfile {
+  id: string;
+  email: string;
+  full_name: string;
+  is_authorized: boolean;
+  created_at: string;
+}
+
+export interface UsersResponse {
+  users: UserProfile[] | null;
+  error: Error | null;
+}
+
 export { User }

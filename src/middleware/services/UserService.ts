@@ -1,5 +1,13 @@
 import supabase from "../database/SupabaseService";
-import { User, UserCredentials, NewUser } from "../types";
+import {
+  UserCredentials, 
+  NewUser, 
+  LoginResponse,
+  AuthResponse, 
+  ErrorOnlyResponse,
+  AuthorizationResponse,
+  UsersResponse
+} from "../types";
 
 const SUPERADMIN_EMAIL = import.meta.env.VITE_SUPERADMIN_EMAIL;
 
@@ -7,11 +15,7 @@ export class UserService {
   /**
    * Sign in with email and password
    */
-  public async login(credentials: UserCredentials): Promise<{ 
-    user: User | null; 
-    error: Error | null;
-    isAuthorized: boolean;
-  }> {
+  public async login(credentials: UserCredentials): Promise<LoginResponse> {
     try {
       console.log('Attempting to login with:', credentials.email);
       
@@ -106,7 +110,7 @@ export class UserService {
   /**
    * Create a new user
    */
-  public async register(userData: NewUser): Promise<{ user: User | null; error: Error | null }> {
+  public async register(userData: NewUser): Promise<AuthResponse> {
     try {
       const { data, error } = await supabase.auth.signUp({
         email: userData.email,
@@ -132,7 +136,7 @@ export class UserService {
   /**
    * Sign out the current user
    */
-  public async logout(): Promise<{ error: Error | null }> {
+  public async logout(): Promise<ErrorOnlyResponse> {
     try {
       const { error } = await supabase.auth.signOut();
       
@@ -150,7 +154,7 @@ export class UserService {
   /**
    * Get the current logged-in user
    */
-  public async getCurrentUser(): Promise<{ user: User | null; error: Error | null }> {
+  public async getCurrentUser(): Promise<AuthResponse> {
     try {
       const { data, error } = await supabase.auth.getUser();
       
@@ -168,7 +172,7 @@ export class UserService {
   /**
    * Send password reset email
    */
-  public async resetPassword(email: string): Promise<{ error: Error | null }> {
+  public async resetPassword(email: string): Promise<ErrorOnlyResponse> {
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
         redirectTo: `${window.location.origin}/reset-password`,
@@ -188,7 +192,7 @@ export class UserService {
   /**
    * Update user password
    */
-  public async updatePassword(newPassword: string): Promise<{ error: Error | null }> {
+  public async updatePassword(newPassword: string): Promise<ErrorOnlyResponse> {
     try {
       const { error } = await supabase.auth.updateUser({
         password: newPassword,
@@ -208,7 +212,7 @@ export class UserService {
   /**
    * Resend verification email
    */
-  public async resendVerificationEmail(email: string): Promise<{ error: Error | null }> {
+  public async resendVerificationEmail(email: string): Promise<ErrorOnlyResponse> {
     try {
       const { error } = await supabase.auth.resend({
         type: 'signup',
@@ -229,10 +233,7 @@ export class UserService {
   /**
    * Update user authorization status (admin only)
    */
-  public async setUserAuthorization(userId: string, isAuthorized: boolean): Promise<{ 
-    success: boolean; 
-    error: Error | null 
-  }> {
+  public async setUserAuthorization(userId: string, isAuthorized: boolean): Promise<AuthorizationResponse> {
     try {
       // First check if current user is admin
       const { data: currentUser, error: userError } = await supabase.auth.getUser();
@@ -277,16 +278,7 @@ export class UserService {
   /**
    * Get all users with authorization status (admin only)
    */
-  public async getAllUsers(): Promise<{ 
-    users: Array<{
-      id: string;
-      email: string;
-      full_name: string;
-      is_authorized: boolean;
-      created_at: string;
-    }> | null; 
-    error: Error | null 
-  }> {
+  public async getAllUsers(): Promise<UsersResponse> {
     try {
       // Check admin status first
       const { data: currentUser, error: userError } = await supabase.auth.getUser();
