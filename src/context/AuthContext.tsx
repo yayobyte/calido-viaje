@@ -39,9 +39,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
     // Subscribe to auth changes
     const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      async (_event, session) => {
         if (session?.user) {
-          setUser(session.user as User);
+          const supabaseUser = session.user as unknown as User;
+          setUser(supabaseUser);
           setIsVerified(session.user.user_metadata.email_verified === true);
         } else {
           setUser(null);
@@ -101,7 +102,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     try {
       const { error } = await supabase.auth.resend({
         type: 'signup',
-        email: user.email,
+        email: user.email || '',
       });
       
       if (error) throw error;
