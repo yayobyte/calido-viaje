@@ -1,6 +1,5 @@
 import { Routes, Route } from 'react-router-dom';
 import Invoices from '../../modules/Invoices/Invoices';
-import Home from '../../modules/Home/Home';
 import Login from '../../modules/Auth/Login';
 import Register from '../../modules/Auth/Register';
 import EmailVerification from '../../modules/Auth/EmailVerification';
@@ -9,6 +8,7 @@ import ProtectedRoute from '../../components/ProtectedRoute';
 import styles from './AppRouter.module.css'
 import UserManagement from '../../modules/Admin/UserManagement';
 import Unauthorized from '../../modules/Auth/Unauthorized';
+import FlightSearch from '../../modules/FlightSearch/FlightSearch';
 
 
 const AppRouter = () => {
@@ -16,7 +16,7 @@ const AppRouter = () => {
         <main className={styles.main}>
           <div className={styles.content}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/" element={<FlightSearch />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/verify-email" element={<EmailVerification />} />

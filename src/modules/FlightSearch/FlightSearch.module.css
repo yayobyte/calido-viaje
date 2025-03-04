@@ -1,0 +1,325 @@
+.flightSearchContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(to bottom, #1a365d, #2d3748); /* Darker blue gradient */
+}
+
+.searchPanel {
+  padding: var(--space-xl);
+  z-index: 10;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-white);
+  margin-bottom: var(--space-lg);
+  text-align: center;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  animation: fadeIn 0.8s ease-out;
+}
+
+.formContainer {
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  padding: var(--space-lg);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+  animation: slideUp 0.8s ease-out;
+}
+
+/* Sky and Clouds Animation */
+.illustration {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.blueSky {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, var(--color-primary), var(--color-secondary)); /* Darker blue sky */
+  opacity: 0.5;
+}
+
+.clouds {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.cloud {
+  position: absolute;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50px;
+}
+
+.cloud:nth-child(1) {
+  top: 15%;
+  left: -35%;
+  width: 200px;
+  height: 60px;
+  animation: moveCloud 120s linear infinite;
+}
+
+.cloud:nth-child(2) {
+  top: 30%;
+  left: -40%;
+  width: 300px;
+  height: 70px;
+  animation: moveCloud 80s linear infinite;
+  animation-delay: -20s;
+}
+
+.cloud:nth-child(3) {
+  top: 60%;
+  left: -38%;
+  width: 180px;
+  height: 50px;
+  animation: moveCloud 100s linear infinite;
+  animation-delay: -50s;
+}
+
+.cloud:before,
+.cloud:after {
+  content: '';
+  position: absolute;
+  background: inherit;
+  border-radius: 50%;
+}
+
+.cloud:nth-child(1):before {
+  width: 100px;
+  height: 100px;
+  top: -50px;
+  left: 30px;
+}
+
+.cloud:nth-child(1):after {
+  width: 80px;
+  height: 80px;
+  top: -30px;
+  right: 30px;
+}
+
+.cloud:nth-child(2):before {
+  width: 120px;
+  height: 120px;
+  top: -60px;
+  left: 50px;
+}
+
+.cloud:nth-child(2):after {
+  width: 100px;
+  height: 100px;
+  top: -40px;
+  right: 50px;
+}
+
+.cloud:nth-child(3):before {
+  width: 90px;
+  height: 90px;
+  top: -50px;
+  left: 25px;
+}
+
+.cloud:nth-child(3):after {
+  width: 70px;
+  height: 70px;
+  top: -30px;
+  right: 25px;
+}
+
+/* Improved Airplane Animation */
+.plane {
+  position: absolute;
+  bottom: 15%;
+  left: -100px;
+  transform: rotate(5deg);
+  animation: flyPlane 30s linear infinite;
+  z-index: 3;
+}
+
+/* Completely redesigned plane */
+.planeBody {
+  position: relative;
+  width: 140px;
+  height: 30px;
+  background: white;
+  border-radius: 50% 20% 50% 20%;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.planeNose {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  background: white;
+  border-radius: 50%;
+  left: -10px;
+  top: 3px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.planeWing {
+  position: absolute;
+  width: 70px;
+  height: 18px;
+  background: white;
+  border-radius: 50% 50% 20% 20%;
+  top: -10px;
+  left: 40px;
+  transform: rotate(-5deg);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+.planeWingBottom {
+  position: absolute;
+  width: 50px;
+  height: 15px;
+  background: white;
+  border-radius: 20% 20% 50% 50%;
+  bottom: -8px;
+  left: 45px;
+  transform: rotate(5deg);
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+  z-index: -1;
+}
+
+.planeTail {
+  position: absolute;
+  width: 20px;
+  height: 35px;
+  background: white;
+  border-radius: 50% 50% 20% 20%;
+  top: -30px;
+  left: 105px;
+  transform: rotate(45deg);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.planeWindow {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: #a0aec0;
+  border-radius: 50%;
+  top: 10px;
+}
+
+.planeWindow:nth-child(1) {
+  left: 30px;
+}
+
+.planeWindow:nth-child(2) {
+  left: 45px;
+}
+
+.planeWindow:nth-child(3) {
+  left: 60px;
+}
+
+.planeWindow:nth-child(4) {
+  left: 75px;
+}
+
+.planeWindow:nth-child(5) {
+  left: 90px;
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes moveCloud {
+  from {
+    left: -10%;
+  }
+  to {
+    left: 110%;
+  }
+}
+
+@keyframes flyPlane {
+  from {
+    left: -100px;
+    bottom: 15%;
+  }
+  25% {
+    bottom: 45%;
+  }
+  50% {
+    bottom: 25%;
+  }
+  75% {
+    bottom: 55%;
+  }
+  to {
+    left: 120%;
+    bottom: 35%;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .searchPanel {
+    padding: var(--space-md);
+  }
+  
+  .title {
+    font-size: 2rem;
+  }
+  
+  .formContainer {
+    padding: var(--space-md);
+  }
+  
+  .cloud:nth-child(1) {
+    animation: moveCloud 60s linear infinite;
+  }
+  
+  .cloud:nth-child(2) {
+    animation: moveCloud 40s linear infinite;
+  }
+  
+  .cloud:nth-child(3) {
+    animation: moveCloud 50s linear infinite;
+  }
+}
+
+.logo {
+  width: 300px;
+  max-width: 90%;
+  margin-bottom: 24px;
+}

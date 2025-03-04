@@ -1,0 +1,318 @@
+.detailsContainer {
+  padding: var(--space-lg);
+  background-color: var(--color-white);
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.title {
+  font-size: 1.5rem;
+  color: var(--color-primary);
+}
+
+.closeButton {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--color-gray-500);
+  transition: all 0.2s;
+}
+
+.closeButton:hover {
+  color: var(--color-gray-800);
+}
+
+.summary {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+  padding: var(--space-sm);
+  background-color: var(--color-gray-100);
+  border-radius: 8px;
+}
+
+.routeSummary {
+  display: flex;
+  flex-direction: column;
+}
+
+.route {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.date {
+  font-size: 0.9rem;
+  color: var(--color-gray-600);
+}
+
+.priceSummary {
+  text-align: right;
+}
+
+.priceLabel {
+  font-size: 0.8rem;
+  color: var(--color-gray-600);
+}
+
+.price {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+.segment {
+  margin-bottom: var(--space-lg);
+  animation: fadeIn 0.5s ease-out;
+}
+
+.segmentHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+}
+
+.segmentTitle {
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.segmentType {
+  font-size: 0.8rem;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-gray-200);
+  border-radius: 4px;
+  color: var(--color-gray-700);
+}
+
+.timeline {
+  position: relative;
+  padding-left: 30px;
+  margin-top: var(--space-md);
+}
+
+.timelineConnector {
+  position: absolute;
+  top: 24px;
+  left: 10px;
+  bottom: 24px;
+  width: 2px;
+  background-color: var(--color-gray-300);
+}
+
+.timelineEvent {
+  position: relative;
+  margin-bottom: var(--space-lg);
+}
+
+.timelinePoint {
+  position: absolute;
+  left: -30px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: var(--color-white);
+  border: 2px solid var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.timelineIcon {
+  font-size: 0.8rem;
+  color: var(--color-primary);
+}
+
+.timelineContent {
+  background-color: var(--color-white);
+  border: 1px solid var(--color-gray-200);
+  border-radius: 8px;
+  padding: var(--space-md);
+}
+
+.timeLabel {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.locationLabel {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-top: var(--space-xs);
+}
+
+.airportInfo {
+  font-size: 0.8rem;
+  color: var(--color-gray-600);
+  margin-top: 2px;
+}
+
+.flightInfo {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px dashed var(--color-gray-300);
+  display: flex;
+  justify-content: space-between;
+}
+
+.aircraft {
+  display: flex;
+  flex-direction: column;
+}
+
+.aircraftLabel {
+  font-size: 0.8rem;
+  color: var(--color-gray-600);
+}
+
+.aircraftValue {
+  font-size: 0.9rem;
+}
+
+.layoverInfo {
+  background-color: var(--color-gray-100);
+  padding: var(--space-sm);
+  border-radius: 8px;
+  margin: var(--space-sm) 0;
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+.layoverDuration {
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.layoverLocation {
+  color: var(--color-gray-600);
+  font-size: 0.9rem;
+}
+
+.bookingDetails {
+  background-color: var(--color-gray-100);
+  padding: var(--space-md);
+  border-radius: 8px;
+  margin-top: var(--space-lg);
+}
+
+.bookingHeader {
+  margin-bottom: var(--space-sm);
+  font-weight: 500;
+}
+
+.bookingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  font-size: 0.9rem;
+}
+
+.bookingItem {
+  display: flex;
+  justify-content: space-between;
+}
+
+.bookingLabel {
+  color: var(--color-gray-600);
+}
+
+.bookingValue {
+  font-weight: 500;
+}
+
+.totalPrice {
+  margin-top: var(--space-sm);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-gray-300);
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+}
+
+.actions {
+  margin-top: var(--space-lg);
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-md);
+}
+
+.backButton {
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-gray-200);
+  color: var(--color-gray-700);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.backButton:hover {
+  background-color: var(--color-gray-300);
+}
+
+.bookButton {
+  padding: var(--space-sm) var(--space-lg);
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.bookButton:hover {
+  background-color: var(--color-primary-dark);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .detailsContainer {
+    padding: var(--space-md);
+  }
+  
+  .summary {
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+  
+  .priceSummary {
+    text-align: left;
+  }
+  
+  .flightInfo {
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .backButton, 
+  .bookButton {
+    width: 100%;
+  }
+}

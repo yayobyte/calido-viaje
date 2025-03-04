@@ -20,6 +20,7 @@
 .logo {
   display: flex;
   align-items: center;
+  z-index: 1010;
 }
 
 .logoImage {
@@ -85,6 +86,7 @@
   visibility: hidden;
   transform: translateY(-10px);
   transition: all 0.2s;
+  z-index: 1020;
 }
 
 .userMenu:hover .userDropdown {
@@ -102,6 +104,8 @@
   cursor: pointer;
   color: var(--color-secondary-dark);
   transition: background-color 0.2s;
+  display: block;
+  text-decoration: none;
 }
 
 .logoutButton {
@@ -119,24 +123,70 @@
   background-color: var(--color-gray-200);
 }
 
+.mobileMenuButton {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--color-white);
+  font-size: 1.5rem;
+  cursor: pointer;
+  z-index: 1010;
+}
+
 @media (max-width: 768px) {
-  .nav {
-    flex-direction: column;
-    gap: var(--space-sm);
+  .header {
+    padding: var(--space-sm);
+  }
+  
+  .mobileMenuButton {
+    display: block;
   }
   
   .links {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 70%;
+    height: 100vh;
+    background: var(--color-primary);
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 80px var(--space-md) var(--space-md);
+    transition: right 0.3s ease;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .links.active {
+    right: 0;
+  }
+  
+  .link {
     width: 100%;
-    justify-content: space-between;
+    padding: var(--space-sm) 0;
+  }
+  
+  .userMenu {
+    width: 100%;
+  }
+  
+  .userButton {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: var(--space-sm);
   }
   
   .userDropdown {
-    right: auto;
-    left: 50%;
-    transform: translateX(-50%) translateY(-10px);
+    position: static;
+    margin-top: var(--space-xs);
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    display: none;
   }
   
   .userMenu:hover .userDropdown {
-    transform: translateX(-50%) translateY(0);
+    display: block;
   }
 }
