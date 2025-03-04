@@ -1,21 +1,15 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Invoices from './modules/Invoices/Invoices';
-import Navigator from './components/ui/navigator/Navigator';
-import styles from './App.module.css';
-import Home from './modules/Home/Home';
+import { BrowserRouter as Router} from 'react-router-dom';
+import Navigator from './components/navigator/Navigator';
+import { AuthProvider } from './context/AuthContext';
+import AppRouter from './components/appRouter/AppRouter';
 
 function App() {
   return (
     <Router>
-      <Navigator />
-      <main className={styles.main}>
-        <div className={styles.content}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/invoices" element={<Invoices />} />
-          </Routes>
-        </div>
-      </main>
+      <AuthProvider>
+        <Navigator />
+        <AppRouter />
+      </AuthProvider>
     </Router>
   );
 }
