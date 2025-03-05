@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FlightSearchParams, Airport } from '../../middleware/types';
 import styles from './SearchForm.module.css';
 
@@ -23,12 +23,40 @@ const SearchForm: React.FC<SearchFormProps> = ({
   handleSearchSubmit,
   loading
 }) => {
+  // Add local state to track input values
+  const [originInput, setOriginInput] = useState(searchParams.originLocationCode || '');
+  const [destinationInput, setDestinationInput] = useState(searchParams.destinationLocationCode || '');
+  
   // Calculate min date for departure (today)
   const today = new Date();
   const minDate = today.toISOString().split('T')[0];
   
   // Calculate min date for return (based on departure date or today)
   const minReturnDate = searchParams.departureDate || minDate;
+
+  // Handle origin input change
+  const handleOriginChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setOriginInput(value);
+    handleAirportSearch(value, 'origin');
+  };
+
+  // Handle destination input change
+  const handleDestinationChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDestinationInput(value);
+    handleAirportSearch(value, 'destination');
+  };
+
+  // Update local input state when airport is selected
+  const handleAirportSelection = (airport: Airport, type: 'origin' | 'destination') => {
+    if (type === 'origin') {
+      setOriginInput(airport.iataCode);
+    } else {
+      setDestinationInput(airport.iataCode);
+    }
+    handleSelectAirport(airport, type);
+  };
 
   return (
     <form onSubmit={handleSearchSubmit} className={styles.searchForm}>
@@ -40,11 +68,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
               type="text"
               id="origin"
               placeholder="City or Airport"
-              value={searchParams.originLocationCode ? 
-                `${searchParams.originLocationCode}` : ''}
-              onChange={(e) => {
-                handleAirportSearch(e.target.value, 'origin');
-              }}
+              value={originInput}
+              onChange={handleOriginChange}
               className={styles.input}
               required
             />
@@ -53,7 +78,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 {originSearchResults.map(airport => (
                   <li 
                     key={airport.iataCode}
-                    onClick={() => handleSelectAirport(airport, 'origin')}
+                    onClick={() => handleAirportSelection(airport, 'origin')}
                     className={styles.autocompleteItem}
                   >
                     <span className={styles.airportCode}>{airport.iataCode}</span>
@@ -73,11 +98,8 @@ const SearchForm: React.FC<SearchFormProps> = ({
               type="text"
               id="destination"
               placeholder="City or Airport"
-              value={searchParams.destinationLocationCode ? 
-                `${searchParams.destinationLocationCode}` : ''}
-              onChange={(e) => {
-                handleAirportSearch(e.target.value, 'destination');
-              }}
+              value={destinationInput}
+              onChange={handleDestinationChange}
               className={styles.input}
               required
             />
@@ -86,7 +108,7 @@ const SearchForm: React.FC<SearchFormProps> = ({
                 {destinationSearchResults.map(airport => (
                   <li 
                     key={airport.iataCode}
-                    onClick={() => handleSelectAirport(airport, 'destination')}
+                    onClick={() => handleAirportSelection(airport, 'destination')}
                     className={styles.autocompleteItem}
                   >
                     <span className={styles.airportCode}>{airport.iataCode}</span>

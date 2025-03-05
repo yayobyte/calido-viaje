@@ -9,6 +9,7 @@ import styles from './AppRouter.module.css'
 import UserManagement from '../../modules/Admin/UserManagement';
 import Unauthorized from '../../modules/Auth/Unauthorized';
 import FlightSearch from '../../modules/FlightSearch/FlightSearch';
+import FlightResults from '../../modules/FlightResults/FlightResults';
 
 
 const AppRouter = () => {
@@ -17,6 +18,7 @@ const AppRouter = () => {
           <div className={styles.content}>
             <Routes>
               <Route path="/" element={<FlightSearch />} />
+              <Route path="/flights/results" element={<FlightResults />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
               <Route path="/verify-email" element={<EmailVerification />} />

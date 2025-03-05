@@ -129,7 +129,7 @@ const FlightResults: React.FC = () => {
     <div className={styles.resultsContainer}>
       <div className={styles.header}>
         <h1 className={styles.title}>Flight Results</h1>
-        <Link to="/flights" className={styles.returnLink}>
+        <Link to="/" className={styles.returnLink}>
           <FaArrowLeft /> Back to Search
         </Link>
       </div>

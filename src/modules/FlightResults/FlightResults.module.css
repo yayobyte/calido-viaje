@@ -72,37 +72,39 @@
 }
 
 .filterContainer {
-  margin-bottom: var(--space-md);
-  background: var(--color-white);
-  padding: var(--space-md);
+  background-color: var(--color-white);
   border-radius: 8px;
+  padding: var(--space-md);
+  margin-bottom: var(--space-md);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   animation: slideDown 0.5s ease-out;
 }
 
 .filterTitle {
+  margin-top: 0;
+  margin-bottom: var(--space-md);
   font-size: 1.1rem;
-  margin-bottom: var(--space-sm);
   color: var(--color-gray-800);
 }
 
 .filters {
   display: flex;
-  gap: var(--space-md);
   flex-wrap: wrap;
+  gap: var(--space-md);
 }
 
 .filterGroup {
   display: flex;
   align-items: center;
-  gap: var(--space-sm);
   flex: 1;
-  min-width: 150px;
+  min-width: 180px;
 }
 
 .filterLabel {
-  font-size: 0.9rem;
-  color: var(--color-gray-600);
+  margin-right: var(--space-sm);
+  font-weight: 500;
+  color: var(--color-gray-700);
+  white-space: nowrap;
 }
 
 .filterSelect {
@@ -110,6 +112,8 @@
   padding: var(--space-xs) var(--space-sm);
   border: 1px solid var(--color-gray-300);
   border-radius: 4px;
+  background-color: var(--color-white);
+  color: var(--color-gray-800);
   font-size: 0.9rem;
 }
 
@@ -346,6 +350,35 @@
   }
   
   .selectButton {
+    width: 100%;
+  }
+
+  .filters {
+    flex-direction: column;
+  }
+  
+  .filterGroup {
+    width: 100%;
+  }
+  
+  .filterLabel {
+    min-width: 70px; /* Ensures consistent alignment */
+  }
+}
+
+/* For very small screens, make sure labels and selects stack vertically if needed */
+@media (max-width: 400px) {
+  .filterGroup {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .filterLabel {
+    margin-bottom: var(--space-xs);
+    margin-right: 0;
+  }
+  
+  .filterSelect {
     width: 100%;
   }
 }
