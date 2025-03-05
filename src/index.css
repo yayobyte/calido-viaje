@@ -11,6 +11,25 @@
   --color-secondary-light: #e5cf98;
   --color-secondary-dark: #c1a45c;
 
+  /* Success and Error Colors - Adding these */
+  --color-success: #198754;
+  --color-success-light: #d1e7dd;
+  --color-success-dark: #0f5132;
+  
+  --color-error: #dc3545;
+  --color-error-light: #f8d7da;
+  --color-error-dark: #842029;
+  
+  /* Warning Colors */
+  --color-warning: #ffc107;
+  --color-warning-light: #fff3cd;
+  --color-warning-dark: #997404;
+  
+  /* Info Colors */
+  --color-info: #0dcaf0;
+  --color-info-light: #cff4fc;
+  --color-info-dark: #055160;
+
   /* Neutral Colors */
   --color-white: #ffffff;
   --color-gray-100: #f8f9fa;

@@ -87,6 +87,49 @@
   display: none;
 }
 
+/* Adding new variants matching our color system */
+.success {
+  background: var(--color-success);
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.success:hover {
+  background: var(--color-success-dark);
+}
+
+.danger {
+  background: var(--color-error);
+  color: white;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.danger:hover {
+  background: var(--color-error-dark);
+}
+
+.warning {
+  background: var(--color-warning);
+  color: var(--color-gray-900);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.warning:hover {
+  background: var(--color-warning-dark);
+  color: var(--color-gray-900);
+}
+
+.info {
+  background: var(--color-info);
+  color: var(--color-gray-900);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.info:hover {
+  background: var(--color-info-dark);
+  color: white;
+}
+
 /* Sizes */
 .small {
   padding: 0.25rem 0.75rem;
@@ -118,4 +161,10 @@
 
 .button:disabled:active {
   transform: none;
+}
+
+/* Add this to make sure the hover effect isn't applied when disabled */
+.button:disabled:hover {
+  background: inherit;
+  color: inherit;
 }
