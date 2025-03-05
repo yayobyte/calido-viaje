@@ -6,7 +6,7 @@ import { UserApi } from '../../middleware/api/UserApi';
 import Loader from '../../components/ui/loader/Loader';
 import { FaEnvelope, FaCalendarAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import Button from '../../components/ui/Button/Button';
-import Table from '../../components/ui/Table/Table';
+import Table from '../../components/ui/table/Table';
 
 const SUPERADMIN_EMAIL = import.meta.env.VITE_SUPERADMIN_EMAIL;
 

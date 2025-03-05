@@ -7,7 +7,7 @@ import { formattedDate } from '../../helpers/date';
 import { formatColombianCurrency } from '../../helpers/currency';
 import { generateDocument } from '../../helpers/generateDoc';
 import { mapInvoiceInfo } from './helper';
-import Table from '../../components/ui/Table/Table';
+import Table from '../../components/ui/table/Table';
 import Button from '../../components/ui/Button/Button';
 
 const invoiceService = new InvoiceService();
