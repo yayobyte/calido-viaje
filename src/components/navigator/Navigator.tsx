@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Navigator.module.css';
 import { useAuth } from '../../context/AuthContext';
-import { FaBars, FaTimes } from 'react-icons/fa';
-import LogoImage from '../../assets/images/no_bg_color_full_logo.svg';  // Update to use full logo
+import { FaBars, FaTimes, FaHome, FaFileInvoiceDollar, FaUser, FaUserCog } from 'react-icons/fa';
+import { RiLogoutBoxRLine } from 'react-icons/ri';
+import LogoImage from '../../assets/images/no_bg_color_full_logo.png';
+import LinkButton from '../ui/LinkButton/LinkButton';
+import Button from '../ui/Button/Button';
 
 const Navigator: React.FC = () => {
   const location = useLocation();
@@ -32,56 +35,80 @@ const Navigator: React.FC = () => {
           </Link>
         </div>
         
-        <button className={styles.mobileMenuButton} onClick={toggleMenu}>
+        <button 
+          className={`${styles.mobileMenuButton} ${menuOpen ? styles.mobileMenuActive : ''}`} 
+          onClick={toggleMenu}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+        >
           {menuOpen ? <FaTimes /> : <FaBars />}
         </button>
         
         <div className={`${styles.links} ${menuOpen ? styles.active : ''}`}>
-          <Link 
-            className={`${styles.link} ${location.pathname === '/' ? styles.active : ''}`} 
-            to="/"
+          <LinkButton 
+            to="/" 
+            variant={location.pathname === '/' ? 'secondary' : 'text'} 
+            size="small" 
+            icon={<FaHome />}
             onClick={closeMenu}
+            className={styles.navLink}
           >
             Home
-          </Link>
+          </LinkButton>
           
           {user && (
-            <Link 
-              className={`${styles.link} ${location.pathname === '/invoices' ? styles.active : ''}`} 
-              to="/invoices"
+            <LinkButton 
+              to="/invoices" 
+              variant={location.pathname === '/invoices' ? 'secondary' : 'text'} 
+              size="small" 
+              icon={<FaFileInvoiceDollar />}
               onClick={closeMenu}
+              className={`${styles.navLink} ${location.pathname === '/invoices' ? styles.activeLink : ''}`}
             >
               Invoices
-            </Link>
+            </LinkButton>
           )}
           
           {!user ? (
-            <Link 
-              className={`${styles.link} ${location.pathname === '/login' ? styles.active : ''}`} 
-              to="/login"
+            <LinkButton 
+              to="/login" 
+              variant={location.pathname === '/login' ? 'secondary' : 'text'} 
+              size="small" 
+              icon={<FaUser />}
               onClick={closeMenu}
+              className={`${styles.navLink} ${location.pathname === '/login' ? styles.activeLink : ''}`}
             >
               Login
-            </Link>
+            </LinkButton>
           ) : (
             <div className={styles.userMenu}>
-              <button className={styles.userButton}>
+              <Button 
+                variant="primary" 
+                size="small" 
+                icon={<FaUser />}
+                className={styles.userNavButton}
+              >
                 {user.user_metadata?.full_name || user.email}
-              </button>
+              </Button>
               <div className={styles.userDropdown}>
-                <Link
-                  className={styles.manageUsersLink}
-                  to='/admin/users'
+                <LinkButton
+                  to="/admin/users"
+                  variant="text"
+                  size="small"
+                  icon={<FaUserCog />}
                   onClick={closeMenu}
+                  className={styles.dropdownLink}
                 >
                   Manage Users
-                </Link>
-                <button 
+                </LinkButton>
+                <Button
                   onClick={handleLogout}
-                  className={styles.logoutButton}
+                  variant="text"
+                  size="small"
+                  icon={<RiLogoutBoxRLine />}
+                  className={styles.dropdownLink}
                 >
                   Logout
-                </button>
+                </Button>
               </div>
             </div>
           )}
