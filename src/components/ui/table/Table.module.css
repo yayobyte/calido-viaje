@@ -1,0 +1,130 @@
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  margin-bottom: var(--space-lg);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th {
+  background-color: var(--color-primary);
+  color: white;
+  text-align: left;
+  padding: var(--space-md) var(--space-lg); /* Increased padding */
+  font-weight: 500;
+}
+
+.table td {
+  padding: var(--space-md) var(--space-lg); /* Increased padding */
+  border-bottom: 1px solid var(--color-gray-200);
+  color: var(--color-gray-800);
+}
+
+.table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: var(--color-gray-50);
+}
+
+.emptyMessage {
+  text-align: center;
+  padding: var(--space-lg);
+  color: var(--color-gray-600);
+}
+
+/* Mobile Card View */
+.cardContainer {
+  display: none;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: var(--space-lg); /* Increased padding */
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-sm);
+  border-bottom: 1px solid var(--color-gray-200);
+  padding-bottom: var(--space-sm);
+}
+
+.cardTitle {
+  margin: 0;
+  font-size: 1.1rem;
+  color: var(--color-gray-900);
+  font-weight: 500;
+}
+
+.cardSubtitle {
+  margin-bottom: var(--space-sm);
+  color: var(--color-gray-600);
+  font-size: 0.9rem;
+  font-style: italic;
+}
+
+.cardContent {
+  margin-bottom: var(--space-md);
+}
+
+.cardRow {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--space-sm) 0; /* Increased vertical padding */
+  border-bottom: 1px solid var(--color-gray-100);
+}
+
+.cardRow:last-child {
+  border-bottom: none;
+}
+
+.cardLabel {
+  font-weight: 500;
+  color: var(--color-gray-700);
+}
+
+.cardValue {
+  color: var(--color-gray-900);
+  text-align: right;
+}
+
+.cardActions {
+  display: flex;
+  justify-content: stretch;
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-gray-200);
+  margin-top: var(--space-md);
+}
+
+.emptyCard {
+  text-align: center;
+  color: var(--color-gray-500);
+  padding: var(--space-md);
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .tableContainer {
+    display: none;
+  }
+  
+  .cardContainer {
+    display: flex;
+  }
+}

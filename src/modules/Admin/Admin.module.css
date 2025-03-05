@@ -1,3 +1,4 @@
+/* Keep only the styles specific to the UserManagement component */
 .container {
   padding: var(--space-lg);
   max-width: 1200px;
@@ -10,59 +11,19 @@
 }
 
 .error {
-  padding: var(--space-sm);
-  margin-bottom: var(--space-md);
   background-color: var(--color-error-light);
   color: var(--color-error);
+  padding: var(--space-sm);
   border-radius: 4px;
-  font-size: 0.9rem;
+  margin-bottom: var(--space-md);
 }
 
-/* Desktop Table Styles */
-.desktopTable {
-  width: 100%;
-  overflow-x: auto;
-}
-
-.table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: var(--space-md);
-  background-color: var(--color-white);
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.table th {
-  background-color: var(--color-primary);
-  color: var(--color-white);
-  text-align: left;
-  padding: var(--space-sm) var(--space-md);
-  font-weight: 500;
-}
-
-.table td {
-  padding: var(--space-sm) var(--space-md);
-  border-bottom: 1px solid var(--color-gray-200);
-}
-
-.table tr:last-child td {
-  border-bottom: none;
-}
-
-.table tr:hover {
-  background-color: var(--color-gray-100);
-}
-
-.table tr:nth-child(even) {
-  background-color: var(--color-gray-50);
-}
-
+/* Status badges */
 .authorized {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: var(--space-xs) var(--space-sm);
-  background-color: rgba(0, 170, 60, 0.15);
+  background-color: var(--color-success-light);
   color: var(--color-success);
   border-radius: 9999px;
   font-size: 0.875rem;
@@ -70,144 +31,47 @@
 }
 
 .unauthorized {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   padding: var(--space-xs) var(--space-sm);
-  background-color: rgba(220, 53, 69, 0.15);
+  background-color: var(--color-error-light);
   color: var(--color-error);
   border-radius: 9999px;
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-.successButton {
-  background-color: var(--color-success);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: var(--space-xs) var(--space-md); /* Wider horizontal padding */
-  font-size: 0.9rem; /* Slightly larger font */
-  cursor: pointer;
-  font-weight: 600; /* Bolder text */
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-  min-width: 110px; /* Minimum width to ensure visibility */
-}
-
-.successButton:hover {
-  background-color: var(--color-success-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.dangerButton {
-  background-color: var(--color-error);
-  color: white;
-  border: none;
-  border-radius: 4px;
-  padding: var(--space-xs) var(--space-md); /* Wider horizontal padding */
-  font-size: 0.9rem; /* Slightly larger font */
-  cursor: pointer;
-  font-weight: 600; /* Bolder text */
-  transition: all 0.2s ease;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add subtle shadow */
-  min-width: 110px; /* Minimum width to ensure visibility */
-}
-
-.dangerButton:hover {
-  background-color: var(--color-error-dark);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.successButton:disabled,
-.dangerButton:disabled {
-  opacity: 0.6;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
-}
-
-.noData {
-  text-align: center;
-  color: var(--color-gray-500);
-  padding: var(--space-md);
-}
-
-/* Mobile Card Styles */
-.mobileCardList {
-  display: none;
-  flex-direction: column;
-  gap: var(--space-md);
-}
-
-.userCard {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  padding: var(--space-md);
-}
-
-.cardHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-sm);
-  border-bottom: 1px solid var(--color-gray-200);
-  padding-bottom: var(--space-sm);
-}
-
-.userName {
-  margin: 0;
-  font-size: 1.1rem;
-  color: var(--color-gray-900);
-}
-
-.statusBadgeAuthorized, .statusBadgeUnauthorized {
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: 20px;
-  font-size: 0.8rem;
-  display: flex;
-  align-items: center;
-  gap: var(--space-xs);
-}
-
 .statusBadgeAuthorized {
-  background-color: rgba(0, 170, 60, 0.15);
-  color: var(--color-success);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
   display: flex;
   align-items: center;
+  padding: var(--space-xs) var(--space-sm);
+  background-color: var(--color-success-light);
+  color: var(--color-success);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
   gap: var(--space-xs);
 }
 
 .statusBadgeUnauthorized {
-  background-color: rgba(220, 53, 69, 0.15);
-  color: var(--color-error);
-  padding: var(--space-xs) var(--space-sm);
-  border-radius: 20px;
-  font-size: 0.9rem;
-  font-weight: 500;
   display: flex;
   align-items: center;
+  padding: var(--space-xs) var (--space-sm);
+  background-color: var(--color-error-light);
+  color: var(--color-error);
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
   gap: var(--space-xs);
 }
 
-.statusIcon {
-  font-size: 0.9rem;
-}
-
-.cardDetails {
-  margin-bottom: var(--space-md);
+.actionButton {
+  min-width: 120px;
 }
 
 .detailItem {
   display: flex;
   align-items: center;
-  margin-bottom: var(--space-xs);
-  color: var(--color-gray-700);
   gap: var(--space-xs);
 }
 
@@ -216,69 +80,8 @@
   font-size: 1rem;
 }
 
-.cardActions {
-  display: flex;
-  justify-content: stretch; /* Change from flex-end to stretch */
-  padding-top: var(--space-sm);
-  border-top: 1px solid var(--color-gray-200);
-  margin-top: var(--space-md);
-}
-
-.cardActions button {
-  flex: 1; /* Make the button take full width */
-  justify-content: center;
-  align-items: center;
-  display: flex;
-  padding: var(--space-sm) var(--space-md);
-  margin-top: var(--space-xs);
-}
-
-.noDataCard {
-  text-align: center;
-  color: var(--color-gray-500);
-  padding: var(--space-md);
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-/* Add this class to style the Button component */
-.actionButton {
-  min-width: 120px;
-}
-
-/* Responsive styles */
 @media (max-width: 768px) {
   .container {
     padding: var(--space-md);
-  }
-  
-  .desktopTable {
-    display: none;
-  }
-  
-  .mobileCardList {
-    display: flex;
-  }
-  
-  .successButton, .dangerButton {
-    width: 100%;
-    padding: var(--space-sm);
-    min-width: 0; /* Override min-width for mobile */
-    font-size: 1rem;
-  }
-  
-  .tableContainer {
-    overflow-x: auto;
-    width: 100%;
-  }
-  
-  .table {
-    min-width: 600px;
-  }
-  
-  .table th,
-  .table td {
-    padding: var(--space-sm);
   }
 }

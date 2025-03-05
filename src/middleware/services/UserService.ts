@@ -39,8 +39,6 @@ export class UserService {
           .eq('id', data.user.id)
           .single();
         
-        console.log('Profile data:', profileData, 'Error:', profileError);
-        
         // If profile doesn't exist, create one
         if (profileError && profileError.code === 'PGRST116') {
           console.log('Profile not found, creating one');

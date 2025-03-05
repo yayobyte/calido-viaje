@@ -6,6 +6,7 @@ import { UserApi } from '../../middleware/api/UserApi';
 import Loader from '../../components/ui/loader/Loader';
 import { FaEnvelope, FaCalendarAlt, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import Button from '../../components/ui/Button/Button';
+import Table from '../../components/ui/Table/Table';
 
 const SUPERADMIN_EMAIL = import.meta.env.VITE_SUPERADMIN_EMAIL;
 
@@ -61,6 +62,76 @@ const UserManagement: React.FC = () => {
     setActionInProgress(null);
   };
   
+  // Define table columns
+  const columns = [
+    {
+      header: 'Name',
+      key: 'full_name',
+      mobilePriority: 1
+    },
+    {
+      header: 'Email',
+      key: 'email',
+      mobilePriority: 2,
+      mobileRender: (item: UserListItem) => (
+        <div className={styles.detailItem}>
+          <FaEnvelope className={styles.detailIcon} />
+          <span>{item.email}</span>
+        </div>
+      )
+    },
+    {
+      header: 'Created',
+      key: 'created_at',
+      render: (item: UserListItem) => new Date(item.created_at).toLocaleDateString(),
+      mobilePriority: 3,
+      mobileRender: (item: UserListItem) => (
+        <div className={styles.detailItem}>
+          <FaCalendarAlt className={styles.detailIcon} />
+          <span>{new Date(item.created_at).toLocaleDateString()}</span>
+        </div>
+      )
+    },
+    {
+      header: 'Status',
+      key: 'is_authorized',
+      render: (item: UserListItem) => (
+        <span className={item.is_authorized ? styles.authorized : styles.unauthorized}>
+          {item.is_authorized ? (
+            <>
+              <FaCheckCircle style={{ marginRight: '4px' }} /> Authorized
+            </>
+          ) : (
+            <>
+              <FaTimesCircle style={{ marginRight: '4px' }} /> Unauthorized
+            </>
+          )}
+        </span>
+      ),
+      mobilePriority: 0
+    },
+    {
+      header: 'Actions',
+      key: 'actions',
+      render: (item: UserListItem) => (
+        <Button 
+          variant={item.is_authorized ? "danger" : "success"}
+          size="small"
+          onClick={() => handleToggleAuthorization(item.id, item.is_authorized)}
+          disabled={actionInProgress === item.id}
+          className={styles.actionButton}
+        >
+          {actionInProgress === item.id 
+            ? 'Processing...' 
+            : item.is_authorized 
+              ? 'Revoke Access' 
+              : 'Authorize'}
+        </Button>
+      ),
+      mobilePriority: 999 // Don't show in mobile content section
+    }
+  ];
+
   // Only admin can access this page
   if (user?.email !== SUPERADMIN_EMAIL) {
     return <Navigate to="/" replace />;
@@ -80,113 +151,36 @@ const UserManagement: React.FC = () => {
         </div>
       )}
       
-      {/* Desktop Table View (hidden on mobile) */}
-      <div className={styles.desktopTable}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>Name</th>
-              <th>Email</th>
-              <th>Created</th>
-              <th>Status</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {users.map(user => (
-              <tr key={user.id}>
-                <td>{user.full_name}</td>
-                <td>{user.email}</td>
-                <td>{new Date(user.created_at).toLocaleDateString()}</td>
-                <td>
-                  <span className={user.is_authorized ? styles.authorized : styles.unauthorized}>
-                    {user.is_authorized ? (
-                      <>
-                        <FaCheckCircle style={{ marginRight: '4px' }} /> Authorized
-                      </>
-                    ) : (
-                      <>
-                        <FaTimesCircle style={{ marginRight: '4px' }} /> Unauthorized
-                      </>
-                    )}
-                  </span>
-                </td>
-                <td>
-                  <Button 
-                    variant={user.is_authorized ? "danger" : "success"}
-                    size="small"
-                    onClick={() => handleToggleAuthorization(user.id, user.is_authorized)}
-                    disabled={actionInProgress === user.id}
-                    className={styles.actionButton}
-                  >
-                    {actionInProgress === user.id 
-                      ? 'Processing...' 
-                      : user.is_authorized 
-                        ? 'Revoke Access' 
-                        : 'Authorize'}
-                  </Button>
-                </td>
-              </tr>
-            ))}
-            
-            {users.length === 0 && (
-              <tr>
-                <td colSpan={5} className={styles.noData}>
-                  No users found
-                </td>
-              </tr>
-            )}
-          </tbody>
-        </table>
-      </div>
-      
-      {/* Mobile Card View (hidden on desktop) */}
-      <div className={styles.mobileCardList}>
-        {users.length === 0 ? (
-          <div className={styles.noDataCard}>No users found</div>
-        ) : (
-          users.map(user => (
-            <div key={user.id} className={styles.userCard}>
-              <div className={styles.cardHeader}>
-                <h3 className={styles.userName}>{user.full_name}</h3>
-                <span className={user.is_authorized ? styles.statusBadgeAuthorized : styles.statusBadgeUnauthorized}>
-                  {user.is_authorized ? 
-                    <><FaCheckCircle className={styles.statusIcon} /> Authorized</> : 
-                    <><FaTimesCircle className={styles.statusIcon} /> Unauthorized</>
-                  }
-                </span>
-              </div>
-              
-              <div className={styles.cardDetails}>
-                <div className={styles.detailItem}>
-                  <FaEnvelope className={styles.detailIcon} />
-                  <span>{user.email}</span>
-                </div>
-                <div className={styles.detailItem}>
-                  <FaCalendarAlt className={styles.detailIcon} />
-                  <span>Created: {new Date(user.created_at).toLocaleDateString()}</span>
-                </div>
-              </div>
-              
-              <div className={styles.cardActions}>
-                <Button 
-                  variant={user.is_authorized ? "danger" : "success"}
-                  size="medium"
-                  fullWidth={true}
-                  onClick={() => handleToggleAuthorization(user.id, user.is_authorized)}
-                  disabled={actionInProgress === user.id}
-                >
-                  {actionInProgress === user.id 
-                    ? 'Processing...' 
-                    : user.is_authorized 
-                      ? 'Revoke Access' 
-                      : 'Authorize'}
-                </Button>
-              </div>
-            </div>
-          ))
+      <Table 
+        data={users}
+        columns={columns}
+        keyExtractor={(item) => item.id}
+        emptyMessage="No users found"
+        cardTitleKey="full_name"
+        cardStatusBadge={(item) => (
+          <span className={item.is_authorized ? styles.statusBadgeAuthorized : styles.statusBadgeUnauthorized}>
+            {item.is_authorized ? 
+              <><FaCheckCircle className={styles.statusIcon} /> Authorized</> : 
+              <><FaTimesCircle className={styles.statusIcon} /> Unauthorized</>
+            }
+          </span>
         )}
-      </div>
+        cardActions={(item) => (
+          <Button 
+            variant={item.is_authorized ? "danger" : "success"}
+            size="medium"
+            fullWidth={true}
+            onClick={() => handleToggleAuthorization(item.id, item.is_authorized)}
+            disabled={actionInProgress === item.id}
+          >
+            {actionInProgress === item.id 
+              ? 'Processing...' 
+              : item.is_authorized 
+                ? 'Revoke Access' 
+                : 'Authorize'}
+          </Button>
+        )}
+      />
     </div>
   );
 };
