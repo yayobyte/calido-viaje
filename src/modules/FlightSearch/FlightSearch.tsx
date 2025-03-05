@@ -4,7 +4,6 @@ import { AmadeusApi } from '../../middleware/api/AmadeusApi';
 import { Airport, FlightSearchParams } from '../../middleware/types';
 import SearchForm from '../../components/SearchForm/SearchForm';
 import styles from './FlightSearch.module.css';
-import LogoImage from '../../assets/images/no_bg_color_full_logo.png';
 
 const FlightSearch: React.FC = () => {
   const navigate = useNavigate();
@@ -89,7 +88,7 @@ const FlightSearch: React.FC = () => {
   return (
     <div className={styles.flightSearchContainer}>
       <div className={styles.searchPanel}>
-        <img src={LogoImage} alt="Calido Viaje" className={styles.logo} />
+        <h1 className={styles.title}>Find Your Perfect Flight</h1>
         
         <div className={styles.formContainer}>
           <SearchForm 
@@ -102,27 +101,6 @@ const FlightSearch: React.FC = () => {
             handleSearchSubmit={handleSearchSubmit}
             loading={loading}
           />
-        </div>
-      </div>
-      
-      <div className={styles.illustration}>
-        <div className={styles.blueSky}></div>
-        <div className={styles.clouds}>
-          <div className={styles.cloud}></div>
-          <div className={styles.cloud}></div>
-          <div className={styles.cloud}></div>
-        </div>
-        <div className={styles.plane}>
-          <div className={styles.planeBody}></div>
-          <div className={styles.planeNose}></div>
-          <div className={styles.planeWing}></div>
-          <div className={styles.planeWingBottom}></div>
-          <div className={styles.planeTail}></div>
-          <div className={styles.planeWindow}></div>
-          <div className={styles.planeWindow}></div>
-          <div className={styles.planeWindow}></div>
-          <div className={styles.planeWindow}></div>
-          <div className={styles.planeWindow}></div>
         </div>
       </div>
     </div>

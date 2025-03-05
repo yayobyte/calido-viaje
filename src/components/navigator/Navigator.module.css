@@ -1,8 +1,8 @@
 .header {
   width: 100%;
   background: var(--color-primary);
-  padding: var(--space-md);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: var(--space-md) var(--space-lg);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   position: fixed;
   top: 0;
   left: 0;
@@ -21,11 +21,13 @@
   display: flex;
   align-items: center;
   z-index: 1010;
+  height: 60px; /* Set fixed height for the logo container */
 }
 
 .logoImage {
-  height: 40px;
-  width: auto;
+  width: 250px; /* Default width for desktop */
+  height: auto;
+  max-height: 100%;
 }
 
 .links {
@@ -135,7 +137,15 @@
 
 @media (max-width: 768px) {
   .header {
-    padding: var(--space-sm);
+    padding: var(--space-sm) var(--space-md);
+  }
+  
+  .logo {
+    height: 50px; /* Slightly reduced height for mobile */
+  }
+  
+  .logoImage {
+    width: 180px; /* Reduced width for mobile as requested */
   }
   
   .mobileMenuButton {

@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './Navigator.module.css';
 import { useAuth } from '../../context/AuthContext';
-import logo from '../../assets/images/symbol.svg';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import LogoImage from '../../assets/images/no_bg_color_full_logo.svg';  // Update to use full logo
 
 const Navigator: React.FC = () => {
   const location = useLocation();
@@ -28,7 +28,7 @@ const Navigator: React.FC = () => {
       <nav className={styles.nav}>
         <div className={styles.logo}>
           <Link to="/" onClick={closeMenu}>
-            <img src={logo} alt="Calido Viaje" className={styles.logoImage} />
+            <img src={LogoImage} alt="Calido Viaje" className={styles.logoImage} />
           </Link>
         </div>
         
