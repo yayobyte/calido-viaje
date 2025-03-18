@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaArrowLeft, FaPlane, FaClock, FaExchangeAlt, FaChair, FaSuitcase, FaUsers } from 'react-icons/fa';
-import { AmadeusApi } from '../../middleware/api/AmadeusApi';
-import { FlightOffer, FlightSearchParams, FlightSegment } from '../../middleware/types';
+import { AmadeusApi } from '../../../middleware/api/AmadeusApi';
+import { FlightOffer, FlightSearchParams, FlightSegment } from '../../../middleware/types';
 import styles from './FlightResults.module.css';
-import Loader from '../../components/ui/loader/Loader';
-import { formattedShortDate, formatTime } from '../../helpers/date';
-import { formatCurrency } from '../../helpers/currency';
-import AirlineLogo from '../../components/AirlineLogo/AirlineLogo';
+import Loader from '../../../components/ui/loader/Loader';
+import { formattedShortDate, formatTime } from '../../../helpers/date';
+import { formatCurrency } from '../../../helpers/currency';
+import AirlineLogo from '../../../components/AirlineLogo/AirlineLogo';
 
 const FlightResults: React.FC = () => {
   const location = useLocation();

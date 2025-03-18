@@ -8,8 +8,8 @@ import ProtectedRoute from '../../components/ProtectedRoute';
 import styles from './AppRouter.module.css'
 import UserManagement from '../../modules/Admin/UserManagement';
 import Unauthorized from '../../modules/Auth/Unauthorized';
-import FlightSearch from '../../modules/FlightSearch/FlightSearch';
-import FlightResults from '../../modules/FlightResults/FlightResults';
+import FlightSearch from '../../modules/Flights/FlightSearch/FlightSearch';
+import FlightResults from '../../modules/Flights/FlightResults/FlightResults';
 
 
 const AppRouter = () => {

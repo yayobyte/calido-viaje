@@ -1,8 +1,8 @@
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AmadeusApi } from '../../middleware/api/AmadeusApi';
-import { Airport, FlightSearchParams } from '../../middleware/types';
-import SearchForm from '../../components/SearchForm/SearchForm';
+import { AmadeusApi } from '../../../middleware/api/AmadeusApi';
+import { Airport, FlightSearchParams } from '../../../middleware/types';
+import SearchForm from '../../../components/SearchForm/SearchForm';
 import styles from './FlightSearch.module.css';
 
 const FlightSearch: React.FC = () => {
