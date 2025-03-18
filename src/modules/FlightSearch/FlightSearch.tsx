@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { AmadeusApi } from '../../middleware/api/AmadeusApi';
 import { Airport, FlightSearchParams } from '../../middleware/types';
@@ -43,12 +43,13 @@ const FlightSearch: React.FC = () => {
       } else {
         setDestinationSearchResults(response.data);
       }
+      console.log(response.data)
     } catch (error) {
       console.error(`Error searching ${type} airports:`, error);
     }
   };
 
-  const handleSelectAirport = (airport: Airport, type: 'origin' | 'destination') => {
+  const handleSelectAirport = useCallback((airport: Airport, type: 'origin' | 'destination') => {
     if (type === 'origin') {
       setSearchParams(prevParams => ({ 
         ...prevParams, 
@@ -62,12 +63,12 @@ const FlightSearch: React.FC = () => {
       }));
       setDestinationSearchResults([]);
     }
-  };
+  }, [])
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setSearchParams(prevParams => ({ ...prevParams, [name]: value }));
-  };
+  },[])
 
   const handleSearchSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

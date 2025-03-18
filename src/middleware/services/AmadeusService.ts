@@ -186,7 +186,7 @@ import {
     public async searchAirports(keyword: string): Promise<AirportSearchResponse> {
       try {
         const searchParams = new URLSearchParams({
-          subType: 'AIRPORT',
+          subType: 'AIRPORT,CITY',
           keyword,
           'page[limit]': '10'
         });

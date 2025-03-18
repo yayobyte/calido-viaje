@@ -6,7 +6,8 @@ import { FlightOffer, FlightSearchParams } from '../../middleware/types';
 import styles from './FlightResults.module.css';
 import Loader from '../../components/ui/loader/Loader';
 import { formattedShortDate, formatTime } from '../../helpers/date';
-import { formatCurrency } from '../../helpers/currency'
+import { formatCurrency } from '../../helpers/currency';
+import AirlineLogo from '../../components/AirlineLogo/AirlineLogo';
 
 const FlightResults: React.FC = () => {
   const location = useLocation();
@@ -207,14 +208,7 @@ const FlightResults: React.FC = () => {
                   >
                     <div className={styles.flightCardHeader}>
                       <div className={styles.airline}>
-                        <img 
-                          src={`https://www.gstatic.com/flights/airline_logos/70px/${airline}.png`}
-                          alt={airline}
-                          className={styles.airlineLogo}
-                          onError={(e) => {
-                            e.currentTarget.src = '/assets/images/generic-airline.png';
-                          }}
-                        />
+                        <AirlineLogo airlineCode={airline} size="medium" />
                         <span className={styles.airlineName}>{airline}</span>
                       </div>
                       <div className={styles.price}>
@@ -243,8 +237,8 @@ const FlightResults: React.FC = () => {
                           <FaPlane className={styles.stopsIcon} />
                           <span>{getStopsLabel(flight.itineraries[0].segments)}</span>
                         </div>
-                        <div>
-                          <FaClock /> 
+                        <div className={styles.flightTime}>
+                          <FaClock className={styles.timeIcon} /> 
                           {getFlightDuration(flight.itineraries[0].duration)}
                         </div>
                       </div>

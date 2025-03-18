@@ -231,6 +231,18 @@
   justify-content: space-between;
   color: var(--color-gray-600);
   font-size: 0.9rem;
+  gap: 8px;
+}
+
+.flightTime {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+}
+
+.timeIcon {
+  color: var(--color-primary);
 }
 
 .stops {
