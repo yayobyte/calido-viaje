@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import styles from './Invoices.module.css'
 import Loader from '../../components/ui/loader/Loader';
-import { Invoice } from '../../middleware/types';
+import { Invoice, Payment } from '../../middleware/types';
 import { InvoiceService } from '../../middleware/services/InvoiceService';
 import { formattedDate } from '../../helpers/date';
 import { formatColombianCurrency } from '../../helpers/currency';
@@ -62,9 +62,26 @@ function Invoices() {
     {
       header: 'Client',
       key: 'client',
-      render: (item: Invoice) => item.client.name, // Always use render for objects
+      render: (item: Invoice) => item.client.name,
       mobilePriority: 0,
-      mobileRender: (item: Invoice) => item.client.name // Also add mobileRender
+      mobileRender: (item: Invoice) => item.client.name
+    },
+    {
+      header: 'Total',
+      key: 'total',
+      render: (item: Invoice) => formatColombianCurrency(item.total || 0),
+      mobilePriority: 3
+    },
+    {
+      header: 'Status',
+      key: 'paymentStatus',
+      render: (item: Invoice) => (
+        <span className={`${styles.paymentStatus} ${styles[item.paymentStatus || 'unpaid']}`}>
+          {item.paymentStatus === 'paid' ? 'Paid' : 
+           item.paymentStatus === 'partial' ? 'Partial' : 'Unpaid'}
+        </span>
+      ),
+      mobilePriority: 4
     },
     {
       header: 'Actions',
@@ -107,6 +124,22 @@ function Invoices() {
       mobilePriority: 3
     }
   ] : [];
+  
+  // Define payment detail table columns
+  const paymentColumns = currentInvoice ? [
+    {
+      header: 'Payment Date',
+      key: 'paymentDate',
+      render: (item: Payment) => formattedDate(item.paymentDate),
+      mobilePriority: 0
+    },
+    {
+      header: 'Amount',
+      key: 'amount',
+      render: (item: Payment) => formatColombianCurrency(Number(item.amount)),
+      mobilePriority: 1
+    }
+  ] : [];
 
   return (
     <div className={styles.container}>
@@ -122,6 +155,13 @@ function Invoices() {
         cardActions={(item) => (
           <>
             <div className={styles.cardClientInfo}>Client: {item.client.name}</div>
+            <div className={styles.cardPaymentInfo}>
+              <span className={`${styles.paymentStatus} ${styles[item.paymentStatus || 'unpaid']}`}>
+                {item.paymentStatus === 'paid' ? 'Paid' : 
+                 item.paymentStatus === 'partial' ? 'Partial' : 'Unpaid'}
+              </span>
+              <span>{formatColombianCurrency(item.total || 0)}</span>
+            </div>
             <Button
               variant="primary"
               size="medium"
@@ -140,8 +180,26 @@ function Invoices() {
             <div>
               <h2>Invoice: #{currentInvoice.invoiceNumber}</h2>
               <p><i>{formattedDate(currentInvoice.createdAt)}</i></p>
-              <div>
-                <h3>{formatColombianCurrency(currentInvoice.total)}</h3>  
+              <div className={styles.paymentSummary}>
+                <div className={styles.paymentSummaryItem}>
+                  <span>Total:</span> 
+                  <strong>{formatColombianCurrency(currentInvoice.total || 0)}</strong>
+                </div>
+                <div className={styles.paymentSummaryItem}>
+                  <span>Paid:</span> 
+                  <strong>{formatColombianCurrency(currentInvoice.totalPaid || 0)}</strong>
+                </div>
+                <div className={styles.paymentSummaryItem}>
+                  <span>Balance:</span> 
+                  <strong>{formatColombianCurrency(currentInvoice.balanceDue || 0)}</strong>
+                </div>
+                <div className={styles.paymentSummaryItem}>
+                  <span>Status:</span> 
+                  <span className={`${styles.paymentStatus} ${styles[currentInvoice.paymentStatus || 'unpaid']}`}>
+                    {currentInvoice.paymentStatus === 'paid' ? 'Paid' : 
+                     currentInvoice.paymentStatus === 'partial' ? 'Partial' : 'Unpaid'}
+                  </span>
+                </div>
               </div>
             </div>
             <div className={styles.buttonGroup}>
@@ -156,6 +214,7 @@ function Invoices() {
             </div>
           </div>
           
+          <h3>Items</h3>
           <Table
             data={currentInvoice.items}
             columns={itemColumns}
@@ -163,8 +222,24 @@ function Invoices() {
             emptyMessage="No items in this invoice"
           />
           
+          <h3>Payments</h3>
+          <Table
+            data={currentInvoice.payments || []}
+            columns={paymentColumns}
+            keyExtractor={(item) => item.id.toString()}
+            emptyMessage="No payments recorded for this invoice"
+          />
+          
           <div className={styles.invoiceTotal}>
-            <strong>Total: {formatColombianCurrency(currentInvoice.total)}</strong>
+            <div>
+              <strong>Invoice Total: {formatColombianCurrency(currentInvoice.total || 0)}</strong>
+            </div>
+            <div>
+              <strong>Payments Total: {formatColombianCurrency(currentInvoice.totalPaid || 0)}</strong>
+            </div>
+            <div>
+              <strong>Balance Due: {formatColombianCurrency(currentInvoice.balanceDue || 0)}</strong>
+            </div>
           </div>
         </div>
       )}

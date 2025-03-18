@@ -98,6 +98,59 @@
   font-style: italic;
 }
 
+.paymentStatus {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-weight: 500;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.paid {
+  background-color: #e6f7ed;
+  color: #0d6832;
+}
+
+.partial {
+  background-color: #fff8e6;
+  color: #936100;
+}
+
+.unpaid {
+  background-color: #ffe6e6;
+  color: #c30000;
+}
+
+.paymentSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.paymentSummaryItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.cardPaymentInfo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.invoiceTotal {
+  margin-top: 24px;
+  padding-top: 16px;
+  border-top: 1px solid var(--color-gray-200);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 @media (max-width: 768px) {
   .container {
     padding: var(--space-md);

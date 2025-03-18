@@ -21,9 +21,14 @@ export interface Invoice {
     id: number
     invoiceNumber: string
     client: Client,
-    createdAt: string,
-    items: Array<Item>
-    total: number
+    items: InvoiceItem[];
+    payments?: Payment[];
+    createdAt: string;
+    updatedAt: string;
+    total?: number;         // Added by processAllInvoices
+    totalPaid?: number;     // Added by processAllInvoices
+    balanceDue?: number;    // Added by processAllInvoices
+    paymentStatus?: 'paid' | 'partial' | 'unpaid'; // Added by processAllInvoices
 }
 
 export interface UserCredentials {
@@ -253,6 +258,15 @@ export interface FlightSearchResponse {
     };
   };
   error: AmadeusError | null;
+}
+
+export interface Payment {
+    id: number;
+    invoiceId: number;
+    amount: number;
+    paymentDate: string;
+    createdAt: string;
+    updatedAt: string;
 }
 
 export { User }
