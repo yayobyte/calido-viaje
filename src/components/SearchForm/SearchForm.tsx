@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { FlightSearchParams, Airport } from '../../middleware/types';
 import styles from './SearchForm.module.css';
 

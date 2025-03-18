@@ -16,9 +16,10 @@ import {
     errors: AmadeusError[];
   }
   
+  // Define the AmadeusFlightOfferResponse interface to match what the API returns
   interface AmadeusFlightOfferResponse {
     data: FlightOffer[];
-    dictionaries: Dictionaries;
+    dictionaries: Dictionaries; // Use the updated Dictionaries type
     meta: {
       count: number;
       links?: {
@@ -159,7 +160,7 @@ import {
         if ('errors' in result) {
           return {
             data: [],
-            dictionaries: {},
+            dictionaries: {}, // This is ok now since dictionaries is optional
             error: result.errors[0]
           };
         }
@@ -174,8 +175,8 @@ import {
         console.error('Error searching flights:', error);
         return { 
           data: [], 
-          dictionaries: {}, 
-          error: error instanceof Error ? error : new Error('Unknown error') 
+          dictionaries: {},
+          error: this.createAmadeusError(error)
         };
       }
     }
@@ -250,6 +251,17 @@ import {
           error: error instanceof Error ? error : new Error('Unknown error')
         };
       }
+    }
+
+    // Add this function to create an AmadeusError from a regular Error
+    private createAmadeusError(error: unknown): AmadeusError {
+      return {
+        status: 500,
+        code: 'INTERNAL_ERROR',
+        title: 'Internal Service Error',
+        detail: error instanceof Error ? error.message : 'Unknown error occurred',
+        source: { pointer: '/data/flight-offers' }
+      };
     }
   }
   

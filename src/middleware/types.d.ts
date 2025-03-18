@@ -91,9 +91,7 @@ export interface FlightSearchParams {
   adults: number;
   children?: number;
   infants?: number;
-  travelClass?: 'ECONOMY' | 'PREMIUM_ECONOMY' | 'BUSINESS' | 'FIRST';
-  includedAirlineCodes?: string;
-  excludedAirlineCodes?: string;
+  travelClass: string;
   nonStop?: boolean;
   currencyCode?: string;
   maxPrice?: number;
@@ -115,6 +113,10 @@ export interface AmadeusError {
   code: string;
   title: string;
   detail: string;
+  source?: {
+    pointer: string;
+    parameter?: string;
+  };
 }
 
 export interface AirportSearchResponse {
@@ -144,25 +146,21 @@ export interface FlightOfferPrice {
     type: string;
   }[];
   grandTotal: string;
+  additionalServices?: {
+    amount: string;
+    type: string;
+  }[];
 }
 
 export interface FlightSegment {
-  departure: {
-    iataCode: string;
-    at: string;
-    terminal?: string;
-  };
-  arrival: {
-    iataCode: string;
-    at: string;
-    terminal?: string;
-  };
+  departure: FlightEndpoint;
+  arrival: FlightEndpoint;
   carrierCode: string;
   number: string;
   aircraft: {
     code: string;
   };
-  operating?: {
+  operating: {
     carrierCode: string;
   };
   duration: string;
@@ -171,25 +169,50 @@ export interface FlightSegment {
   blacklistedInEU: boolean;
 }
 
+export interface FlightEndpoint {
+  iataCode: string;
+  terminal?: string;
+  at: string;
+}
+
 export interface FlightItinerary {
   duration: string;
   segments: FlightSegment[];
 }
 
-export interface Traveler {
-  id: string;
-  travelerType: string;
-  associatedAdultId?: string;
+export interface TravelerPricing {
+  travelerId: string;
   fareOption: string;
+  travelerType: string;
   price: {
     currency: string;
     total: string;
     base: string;
-    taxes?: {
-      amount: string;
-      code: string;
-    }[];
   };
+  fareDetailsBySegment: FareDetailsBySegment[];
+}
+
+export interface FareDetailsBySegment {
+  segmentId: string;
+  cabin: string;
+  fareBasis: string;
+  brandedFare?: string;
+  brandedFareLabel?: string;
+  class: string;
+  includedCheckedBags?: {
+    quantity: number;
+  };
+  includedCabinBags?: {
+    quantity: number;
+  };
+  amenities?: {
+    description: string;
+    isChargeable: boolean;
+    amenityType: string;
+    amenityProvider: {
+      name: string;
+    };
+  }[];
 }
 
 export interface FlightOffer {
@@ -199,7 +222,9 @@ export interface FlightOffer {
   instantTicketingRequired: boolean;
   nonHomogeneous: boolean;
   oneWay: boolean;
+  isUpsellOffer: boolean;
   lastTicketingDate: string;
+  lastTicketingDateTime: string;
   numberOfBookableSeats: number;
   itineraries: FlightItinerary[];
   price: FlightOfferPrice;
@@ -208,29 +233,26 @@ export interface FlightOffer {
     includedCheckedBagsOnly: boolean;
   };
   validatingAirlineCodes: string[];
-  travelerPricings: Traveler[];
+  travelerPricings: TravelerPricing[];
 }
 
+// Define the Dictionaries type to match what the API actually returns
 export interface Dictionaries {
-  locations?: Record<string, {
-    cityCode: string;
-    countryCode: string;
-  }>;
+  carriers?: Record<string, string>;
   aircraft?: Record<string, string>;
   currencies?: Record<string, string>;
-  carriers?: Record<string, string>;
 }
 
 export interface FlightSearchResponse {
   data: FlightOffer[];
-  dictionaries: Dictionaries;
+  dictionaries?: Dictionaries; // Make it match the Dictionaries interface above
   meta?: {
     count: number;
     links?: {
       self: string;
     };
   };
-  error: AmadeusError | Error | null;
+  error: AmadeusError | null;
 }
 
 export { User }
