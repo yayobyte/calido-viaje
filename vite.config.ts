@@ -10,7 +10,12 @@ export default defineConfig({
     assetsDir: 'assets',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          react: ['react', 'react-dom'],
+          router: ['react-router', 'react-router-dom'],
+          supabase: ['@supabase/supabase-js'],
+          docx: ['docxtemplater', 'pizzip', 'file-saver'],
+        },
         entryFileNames: 'assets/[name].js',
         chunkFileNames: 'assets/[name].js',
         assetFileNames: 'assets/[name].[ext]'

@@ -4,7 +4,7 @@ import styles from './Navigator.module.css';
 import { useAuth } from '../../context/AuthContext';
 import { FaBars, FaTimes, FaHome, FaFileInvoiceDollar, FaUser, FaUserCog } from 'react-icons/fa';
 import { RiLogoutBoxRLine } from 'react-icons/ri';
-import LogoImage from '../../assets/images/no_bg_color_full_logo.png';
+import LogoImage from '../../assets/images/no_bg_color_full_logo_compressed.png';
 import LinkButton from '../ui/LinkButton/LinkButton';
 import Button from '../ui/Button/Button';
 
